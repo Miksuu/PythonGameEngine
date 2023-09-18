@@ -6,6 +6,9 @@ import sys
 object_x = 0.0
 object_y = 0.0
 
+wall_x1, wall_y1 = -1.0, -1.0  # Bottom-left corner
+wall_x2, wall_y2 = 1.0, -0.9  # Top-right corner
+
 def init():
     glClearColor(0.0,0.0,0.0,1.0)
     gluOrtho2D(-1.0,1.0,-1.0,1.0)
@@ -16,9 +19,23 @@ def plotpoints():
     glColor3f(1.0,0.0,0.0)
     glPointSize(10.0)
     glBegin(GL_POINTS)
+    
     glVertex2f(object_x,object_y)
+    
+    renderWallTest()
+
     glEnd()
     glFlush()
+    
+def renderWallTest():
+    # Render wall
+    glColor3f(0.0, 1.0, 0.0)  # Green color for wall
+    # glBegin(GL_QUADS)
+    glVertex2f(wall_x1, wall_y1)
+    glVertex2f(wall_x2, wall_y1)
+    glVertex2f(wall_x2, wall_y2)
+    glVertex2f(wall_x1, wall_y2)
+    
 
 def main():
     glutInit(sys.argv)
@@ -34,16 +51,33 @@ def main():
     glutMainLoop()
 
 
-def keyboard(key, x, y):
+def check_collision():
     global object_x, object_y
+    if wall_x1 < object_x < wall_x2 and wall_y1 < object_y < wall_y2:
+        return True
+    return False
+
+
+def keyboard(key, x, y):
+    global object_x, object_y, prev_object_x, prev_object_y
+
+    # Store the object's current position before moving
+    prev_object_x, prev_object_y = object_x, object_y
+    
     if ord(key) == ord('w'):  # Move Up
-        object_y += 0.01
+        object_y += 0.1
     elif ord(key) == ord('s'):  # Move Down
-        object_y -= 0.01
+        object_y -= 0.1
     elif ord(key) == ord('a'):  # Move Left
-        object_x -= 0.01
+        object_x -= 0.1
     elif ord(key) == ord('d'):  # Move Right
-        object_x += 0.01
+        object_x += 0.1
+        
+    if check_collision():
+        print("Collision detected!")
+        # Revert movement
+        object_x, object_y = prev_object_x, prev_object_y
+
     if ord(key) == 27:  # ESC key
         print("Exiting...")
         glutLeaveMainLoop()
