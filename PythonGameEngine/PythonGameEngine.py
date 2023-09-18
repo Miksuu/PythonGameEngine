@@ -24,6 +24,15 @@ def main():
     glutCreateWindow(b'test')
     glutDisplayFunc(plotpoints)
     init()
+    
+    glutKeyboardFunc(keyboard)
+
     glutMainLoop()
+
+
+def keyboard(key, x, y):
+    if ord(key) == 27:  # ESC key
+        print("Exiting...")
+        glutLeaveMainLoop()
 
 main()
