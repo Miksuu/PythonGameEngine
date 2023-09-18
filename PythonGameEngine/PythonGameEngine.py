@@ -2,15 +2,9 @@ from OpenGL.GL import*
 from OpenGL.GLU import*
 from OpenGL.GLUT import*
 from GameObject import GameObject
+from GameObjectManager import GameObjectManager
 import sys
 
-class GameObjectManager:
-    def __init__(self):
-        self.worldObjects = []
-        
-    def addObject(self, gameObjectToAdd):
-        self.worldObjects.append(gameObjectToAdd)
-    
 gameObjectManager = GameObjectManager()
 # Create a red point as a game object
 player = GameObject(0.0, 0.0, (1.0, 0.0, 0.0), 10.0)
