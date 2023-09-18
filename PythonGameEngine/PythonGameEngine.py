@@ -1,9 +1,12 @@
 from OpenGL.GL import*
 from OpenGL.GLU import*
 from OpenGL.GLUT import*
+import sys
+
+# Other class definitions
 from GameObject import GameObject
 from GameObjectManager import GameObjectManager
-import sys
+
 
 gameObjectManager = GameObjectManager()
 # Create a red point as a game object
