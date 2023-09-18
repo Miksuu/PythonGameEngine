@@ -21,20 +21,22 @@ def plotpoints():
     glBegin(GL_POINTS)
     
     glVertex2f(object_x,object_y)
-    
+    glEnd()    
+
     renderWallTest()
 
-    glEnd()
+
     glFlush()
     
 def renderWallTest():
-    # Render wall
-    glColor3f(0.0, 1.0, 0.0)  # Green color for wall
-    # glBegin(GL_QUADS)
-    glVertex2f(wall_x1, wall_y1)
-    glVertex2f(wall_x2, wall_y1)
-    glVertex2f(wall_x2, wall_y2)
-    glVertex2f(wall_x1, wall_y2)
+    # Render the wall
+    glColor3f(0.0, 1.0, 0.0)  # Set color to green
+    glBegin(GL_QUADS)  # Start drawing a quad
+    glVertex2f(wall_x1, wall_y1)  # Bottom-left corner
+    glVertex2f(wall_x2, wall_y1)  # Bottom-right corner
+    glVertex2f(wall_x2, wall_y2)  # Top-right corner
+    glVertex2f(wall_x1, wall_y2)  # Top-left corner
+    glEnd()  # End drawing
     
 
 def main():
