@@ -3,16 +3,18 @@ from OpenGL.GLU import*
 from OpenGL.GLUT import*
 import sys
 
+from Renderer import Renderer
+
 class GameObject:
-    def __init__(self, x, y, color, point_size):
+    def __init__(self, x, y, color, pointSize, speed):
         self.x = x
         self.y = y
         self.color = color
-        self.point_size = point_size
+        self.pointSize = pointSize
+        self.speed = speed        
 
-    def render(self):
-        glColor3f(*self.color)
-        glPointSize(self.point_size)
-        glBegin(GL_POINTS)
-        glVertex2f(self.x, self.y)
-        glEnd()
+        self.renderer = Renderer(color, pointSize)
+        
+    def handleGameLoop(self):
+        self.renderer.render(self.x, self.y)
+        

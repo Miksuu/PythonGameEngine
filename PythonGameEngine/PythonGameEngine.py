@@ -7,10 +7,10 @@ import sys
 from GameObject import GameObject
 from GameObjectManager import GameObjectManager
 
-
 gameObjectManager = GameObjectManager()
 # Create a red point as a game object
-player = GameObject(0.0, 0.0, (1.0, 0.0, 0.0), 10.0)
+# x, y positions, color, pointSize, speed
+player = GameObject(0.0, 0.0, (1.0, 0.0, 0.0), 10.0, 0.1)
 
 gameObjectManager.addObject(player)
 
@@ -30,7 +30,7 @@ def init():
 
 def plotpoints():
     glClear(GL_COLOR_BUFFER_BIT)
-    player.render()  # Render the player
+    gameObjectManager.handleGameLoop()
     #renderMultiplePoints(wallPoints)  # Render the wall points
     glFlush()
 
@@ -46,11 +46,8 @@ def plotpoints():
 #     glEnd()  # End drawing
     
 
-def renderMultiplePoints(game_objects):
-    for obj in game_objects:
-        obj.render()
-
 def main():
+    print("Starting...")
     glutInit(sys.argv)
     glutInitDisplayMode(GLUT_SINGLE|GLUT_RGB)
     glutInitWindowSize(500,500)
@@ -62,6 +59,7 @@ def main():
     glutKeyboardFunc(keyboard)
 
     glutMainLoop()
+    print("Ending...")
 
 
 # def check_collision():
