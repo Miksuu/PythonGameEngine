@@ -47,5 +47,6 @@ def keyboard(key, x, y):
     if ord(key) == 27:  # ESC key
         print("Exiting...")
         glutLeaveMainLoop()
+    glutPostRedisplay()
 
 main()
