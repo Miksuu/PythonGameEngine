@@ -13,6 +13,9 @@ gameObjectManager = GameObjectManager()
 # x, y positions, color, pointSize, speed
 player = GameObject(0.0, 0.0, (1.0, 0.0, 0.0), 10.0, 0.1)
 
+# Add input to the player
+inputManager = InputManager(player)
+
 gameObjectManager.addObject(player)
 
 # Create a green wall as another game object
