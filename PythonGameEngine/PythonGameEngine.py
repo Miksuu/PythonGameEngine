@@ -20,16 +20,6 @@ inputManager = InputManager(player)
 
 gameObjectManager.addObject(player)
 
-# Create a green wall as another game object
-# wall = GameObject(-1.0, -1.0, (0.0, 1.0, 0.0), None)  # point_size is not used for wall
-
-# wallPoints = []
-# for i in range(-10, 11):  # This creates 21 points
-#     x = i * 0.1
-#     y = -0.9  # Y-coordinate is fixed for the wall points
-#     point = GameObject(x, y, (0.0, 1.0, 0.0), 5.0)
-#     wallPoints.append(point)
-
 def init():
     glClearColor(0.0,0.0,0.0,1.0)
     gluOrtho2D(-1.0,1.0,-1.0,1.0)
@@ -40,19 +30,7 @@ def plotpoints():
     drawRectangle()
     gameObjectManager.handleGameLoop()
     glutSwapBuffers()
-    #renderMultiplePoints(wallPoints)  # Render the wall points
     glFlush()
-
-    
-# def renderWall():
-#     # Render the wall
-#     glColor3f(0.0, 1.0, 0.0)  # Set color to green
-#     glBegin(GL_QUADS)  # Start drawing a quad
-#     glVertex2f(wall_x1, wall_y1)  # Bottom-left corner
-#     glVertex2f(wall_x2, wall_y1)  # Bottom-right corner
-#     glVertex2f(wall_x2, wall_y2)  # Top-right corner
-#     glVertex2f(wall_x1, wall_y2)  # Top-left corner
-#     glEnd()  # End drawing
     
 
 def main():
@@ -70,14 +48,8 @@ def main():
     glutMainLoop()
     print("Ending...")
 
-
-# def check_collision():
-#     global object_x, object_y
-#     if wall_x1 < object_x < wall_x2 and wall_y1 < object_y < wall_y2:
-#         return True
-#     return False
-
 def drawTriangle():
+    # Old code without the vertice array
     # glBegin(GL_TRIANGLES)
     # glVertex2f(0.0, 0.1)
     # glVertex2f(-0.1, -0.1)
