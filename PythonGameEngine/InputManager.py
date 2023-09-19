@@ -12,13 +12,13 @@ class InputManager:
     # prev_object_x, prev_object_y = object_x, object_y
     
         if ord(key) == ord('w'):  # Move Up
-            self.objectToControl.y += 0.1
+            self.objectToControl.position.y += 0.1
         elif ord(key) == ord('s'):  # Move Down
-            self.objectToControl.y -= 0.1
+            self.objectToControl.position.y -= 0.1
         elif ord(key) == ord('a'):  # Move Left
-            self.objectToControl.x -= 0.1
+            self.objectToControl.position.x -= 0.1
         elif ord(key) == ord('d'):  # Move Right
-            self.objectToControl.x += 0.1
+            self.objectToControl.position.x += 0.1
         
         # if check_collision():
         #     print("Collision detected!")
