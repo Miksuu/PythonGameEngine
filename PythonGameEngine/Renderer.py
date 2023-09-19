@@ -7,7 +7,6 @@ from Vector2 import Vector2
 
 class Renderer:
     def __init__(self, color, pointSize):
-        self.worldObjects = []
         self.color = color
         self.pointSize = pointSize
         
