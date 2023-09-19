@@ -6,10 +6,15 @@ from OpenGL.GLUT import*
 from GameObject import GameObject
 from GameObjectManager import GameObjectManager
 
+from InputManager import InputManager
+
 gameObjectManager = GameObjectManager()
 # Create a red point as a game object
 # x, y positions, color, pointSize, speed
 player = GameObject(0.0, 0.0, (1.0, 0.0, 0.0), 10.0, 0.1)
+
+# Add input to the player
+inputManager = InputManager(player)
 
 gameObjectManager.addObject(player)
 
@@ -69,28 +74,6 @@ def main():
 
 
 def keyboard(key, x, y):
-    global player, prev_object_x, prev_object_y
-
-    # Store the object's current position before moving
-    # prev_object_x, prev_object_y = object_x, object_y
-    
-    if ord(key) == ord('w'):  # Move Up
-        player.y += 0.1
-    elif ord(key) == ord('s'):  # Move Down
-        player.y -= 0.1
-    elif ord(key) == ord('a'):  # Move Left
-        player.x -= 0.1
-    elif ord(key) == ord('d'):  # Move Right
-        player.x += 0.1
-        
-    # if check_collision():
-    #     print("Collision detected!")
-    #     # Revert movement
-    #     object_x, object_y = prev_object_x, prev_object_y
-
-    if ord(key) == 27:  # ESC key
-        print("Exiting...")
-        glutLeaveMainLoop()
-    glutPostRedisplay()
+    inputManager.move(key)
 
 main()
