@@ -37,7 +37,7 @@ def init():
 def plotpoints():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     glLoadIdentity()
-    drawSquare()
+    drawRectangle()
     gameObjectManager.handleGameLoop()
     glutSwapBuffers()
     #renderMultiplePoints(wallPoints)  # Render the wall points
@@ -99,12 +99,12 @@ def drawTriangle():
     # Disable vertex array
     glDisableClientState(GL_VERTEX_ARRAY)    
 
-def drawSquare():
+def drawRectangle():
     # Define the vertex array
-    vertices = [ -0.5, -0.5,
-                 0.5, -0.5,
-                 0.5,  0.5,
-                -0.5,  0.5]
+    vertices = [ -0.7, -0.5,
+                 0.7, -0.5,
+                 0.7,  0.5,
+                -0.7,  0.5]
     
     indices = [0, 1, 2, 3]
     
@@ -114,8 +114,7 @@ def drawSquare():
     glDrawElements(GL_QUADS, len(indices), GL_UNSIGNED_BYTE, indices)
     
     # Disable vertex array
-    glDisableClientState(GL_VERTEX_ARRAY)    
-
+    glDisableClientState(GL_VERTEX_ARRAY)
 
 def keyboard(key, x, y):
     inputManager.move(key)
