@@ -28,9 +28,17 @@ def main():
     init()
     
     glutKeyboardFunc(keyboard)
-
+    
+    # Add this line to handle mouse movement
+    glutMotionFunc(mouseMotion)
+    
     glutMainLoop()
     print("Ending...")
+
+# Implement this new function to handle mouse motion
+def mouseMotion(x, y):
+    # Call the handleMouseMovement method from InputManager
+    player.inputManager.handleMouseMovement(x, y)
 
 def init():
     glClearColor(0.0,0.0,0.0,1.0)

@@ -19,4 +19,4 @@ class GameObject:
         
     def handleGameLoop(self):
         self.renderer.drawRectangle(self.position)
-        
+            
