@@ -47,38 +47,21 @@ def plotpoints():
     glutSwapBuffers()
     glFlush()
     
-def drawTriangle():
-    # Define the vertex array
-    vertices = [0.0, 1.0,
-               -1.0, -1.0,
-                1.0, -1.0]
-    
-    # Enable vertex array and specify its data
-    glEnableClientState(GL_VERTEX_ARRAY)
-    glVertexPointer(2, GL_FLOAT, 0, vertices)
-    
-    # Draw the triangle
-    glDrawArrays(GL_TRIANGLES, 0, 3)
-    
-    # Disable vertex array
-    glDisableClientState(GL_VERTEX_ARRAY)    
-
-# def drawRectangle():
+# def drawTriangle():
 #     # Define the vertex array
-#     vertices = [-0.7, -0.5,
-#                  0.7, -0.5,
-#                  0.7,  0.5,
-#                 -0.7,  0.5]
-    
-#     indices = [0, 1, 2, 3]
+#     vertices = [0.0, 1.0,
+#                -1.0, -1.0,
+#                 1.0, -1.0]
     
 #     # Enable vertex array and specify its data
 #     glEnableClientState(GL_VERTEX_ARRAY)
 #     glVertexPointer(2, GL_FLOAT, 0, vertices)
-#     glDrawElements(GL_QUADS, len(indices), GL_UNSIGNED_BYTE, indices)
+    
+#     # Draw the triangle
+#     glDrawArrays(GL_TRIANGLES, 0, 3)
     
 #     # Disable vertex array
-#     glDisableClientState(GL_VERTEX_ARRAY)
+#     glDisableClientState(GL_VERTEX_ARRAY)    
 
 def keyboard(key, x, y):
     inputManager.move(key)
