@@ -30,15 +30,15 @@ def main():
     glutKeyboardFunc(keyboard)
     
     # Add this line to handle mouse movement
-    glutMotionFunc(mouseMotion)
+    glutMotionFunc(mouseDrag)
     
     glutMainLoop()
     print("Ending...")
-
-# Implement this new function to handle mouse motion
-def mouseMotion(x, y):
-    # Call the handleMouseMovement method from InputManager
+    
+def mouseDrag(x, y):
+    # Update the camera position in real-time
     player.inputManager.handleMouseMovement(x, y)
+
 
 def init():
     glClearColor(0.0,0.0,0.0,1.0)

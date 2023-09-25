@@ -1,3 +1,7 @@
+from OpenGL.GL import*
+from OpenGL.GLU import*
+from OpenGL.GLUT import*
+
 from Vector2 import Vector2
 
 class Camera:
@@ -24,3 +28,5 @@ class Camera:
     
         print(f"Camera position after update: {self.position.x} | {self.position.y}")
         print(f"GameObject position after camera update: {gameObject.position.x} | {gameObject.position.y}")
+        
+        glutPostRedisplay()
