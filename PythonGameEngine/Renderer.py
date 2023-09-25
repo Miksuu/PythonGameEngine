@@ -5,11 +5,10 @@ class Renderer:
         self.color = color
         self.pointSize = pointSize
 
-    #def render(self, position):
-        # Existing rendering code for points
-        # ...
-
     def drawRectangle(self, position):
+        # Set the color
+        glColor3f(self.color[0], self.color[1], self.color[2])
+        
         # Define the vertex array
         vertices = [-0.1 + position.x, -0.2 + position.y,
                      0.1 + position.x, -0.2 + position.y,
