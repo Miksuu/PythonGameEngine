@@ -13,7 +13,7 @@ from InputManager import InputManager
 gameObjectManager = GameObjectManager()
 # Create a red point as a game object
 # x, y positions as Vector2, color, pointSize, speed
-player = GameObject(Vector2(0.1, 0.2), (1.0, 0.0, 0.0), 10.0, 0.1)
+player = GameObject(Vector2(0.1, 0.2), (1.0, 0.5, 0.0), 10.0, 0.1)
 
 # Add input to the player
 inputManager = InputManager(player)
