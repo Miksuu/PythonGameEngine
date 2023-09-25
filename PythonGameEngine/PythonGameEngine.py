@@ -3,20 +3,17 @@ from OpenGL.GLU import*
 from OpenGL.GLUT import*
 
 # Engine components
+from Camera import Camera
 from GameObject import GameObject
 from GameObjectManager import GameObjectManager
 from Vector2 import Vector2
 
-# Game class definitions
-from InputManager import InputManager
-
 gameObjectManager = GameObjectManager()
-# Create a red point as a game object
-# x, y positions as Vector2, color, pointSize, speed
-player = GameObject(Vector2(0.1, 0.2), (1.0, 0.5, 0.0), 10.0, 0.1)
 
-# Add input to the player
-inputManager = InputManager(player)
+camera = Camera()
+
+# x, y positions as Vector2, color, pointSize, speed, camera ref
+player = GameObject(Vector2(0.1, 0.2), (1.0, 0.5, 0.0), 10.0, 0.1, camera)
 
 gameObjectManager.addObject(player)
 
@@ -47,6 +44,6 @@ def plotpoints():
     glFlush() 
 
 def keyboard(key, x, y):
-    inputManager.move(key)
+    player.inputManager.move(key)
 
 main()

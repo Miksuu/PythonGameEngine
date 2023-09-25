@@ -3,9 +3,12 @@ from OpenGL.GLU import*
 from OpenGL.GLUT import*
 import sys
 
+from Camera import Camera
+
 class InputManager:
-    def __init__(self, objectToControl):
+    def __init__(self, objectToControl, camera):
         self.objectToControl = objectToControl
+        self.camera = camera
         
     def move(self, key):    
         if ord(key) == ord('w'):  # Move Up
@@ -21,3 +24,6 @@ class InputManager:
             print("Exiting...")
             glutLeaveMainLoop()
         glutPostRedisplay()
+    
+    def handleMouseMovement(self, x, y):
+        self.camera.updateOrientation(x, y)
