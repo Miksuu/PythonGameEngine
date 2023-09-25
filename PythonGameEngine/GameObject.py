@@ -12,5 +12,6 @@ class GameObject:
         self.renderer = Renderer(color, pointSize)
         
     def handleGameLoop(self):
-        self.renderer.render(self.position)
+        #self.renderer.render(self.position)
+        self.renderer.drawRectangle(self.position)
         
