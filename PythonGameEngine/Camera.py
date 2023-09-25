@@ -15,9 +15,9 @@ class Camera:
         scaled_mouseX = mouseX * scaling_factor
         scaled_mouseY = mouseY * scaling_factor
     
-        # Calculate the new camera position based on the GameObject's position and the scaled mouse coordinates
-        new_camera_x = gameObject.position.x + scaled_mouseX
-        new_camera_y = gameObject.position.y + scaled_mouseY
+        # Calculate new camera position based on GameObject's position and scaled mouse coordinates
+        new_camera_x = gameObject.position.x + scaled_mouseX * 0.01  # added scaling for mouse influence
+        new_camera_y = gameObject.position.y + scaled_mouseY * 0.01
     
         # Update the camera position
         self.position = Vector2(new_camera_x, new_camera_y)
