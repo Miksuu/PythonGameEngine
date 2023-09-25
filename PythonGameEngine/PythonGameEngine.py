@@ -21,7 +21,7 @@ def main():
     print("Starting...")
     glutInit(sys.argv)
     glutInitDisplayMode(GLUT_SINGLE|GLUT_RGB)
-    glutInitWindowSize(500,500)
+    glutInitWindowSize(1200,1200)
     glutInitWindowPosition(50,50)
     glutCreateWindow(b'test')
     glutDisplayFunc(plotpoints)
