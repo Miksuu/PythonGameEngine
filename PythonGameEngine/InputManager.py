@@ -26,4 +26,6 @@ class InputManager:
         glutPostRedisplay()
     
     def handleMouseMovement(self, x, y):
+        print(f"Mouse moved to: ({x}, {y})")
         self.camera.updateOrientation(x, y)
+    
