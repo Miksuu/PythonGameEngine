@@ -7,6 +7,11 @@ class Camera:
     
     def updateOrientation(self, mouseX, mouseY):
         print(f"Updating camera orientation based on mouse coordinates: ({mouseX}, {mouseY})")
-        # Update camera orientation based on mouse input
-        # For demonstration, simply set the position to the mouse coordinates
-        self.position = Vector2(mouseX, mouseY)
+        print(f"Camera position before update: {self.position.x} | {self.position.y}")
+        # Existing code for updating camera orientation
+        print(f"Camera position after update: {self.position.x} | {self.position.y}")
+        scaling_factor = 0.1
+        scaled_mouseX = mouseX * scaling_factor
+        scaled_mouseY = mouseY * scaling_factor
+        # Update camera orientation based on scaled mouse coordinates
+        self.position = Vector2(scaled_mouseX, scaled_mouseY)
