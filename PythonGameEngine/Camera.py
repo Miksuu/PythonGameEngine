@@ -29,4 +29,5 @@ class Camera:
         print(f"Camera position after update: {self.position.x} | {self.position.y}")
         print(f"GameObject position after camera update: {gameObject.position.x} | {gameObject.position.y}")
         
+        # Need to keep updating the position while mouse is on the movement
         glutPostRedisplay()
