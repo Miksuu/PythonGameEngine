@@ -20,19 +20,6 @@ inputManager = InputManager(player)
 
 gameObjectManager.addObject(player)
 
-def init():
-    glClearColor(0.0,0.0,0.0,1.0)
-    gluOrtho2D(-1.0,1.0,-1.0,1.0)
-
-def plotpoints():
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-    glLoadIdentity()
-    drawRectangle()
-    gameObjectManager.handleGameLoop()
-    glutSwapBuffers()
-    glFlush()
-    
-
 def main():
     print("Starting...")
     glutInit(sys.argv)
@@ -48,14 +35,19 @@ def main():
     glutMainLoop()
     print("Ending...")
 
-def drawTriangle():
-    # Old code without the vertice array
-    # glBegin(GL_TRIANGLES)
-    # glVertex2f(0.0, 0.1)
-    # glVertex2f(-0.1, -0.1)
-    # glVertex2f(0.1, -0.1)
-    # glEnd()
+def init():
+    glClearColor(0.0,0.0,0.0,1.0)
+    gluOrtho2D(-1.0,1.0,-1.0,1.0)
 
+def plotpoints():
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    glLoadIdentity()
+    drawRectangle()
+    gameObjectManager.handleGameLoop()
+    glutSwapBuffers()
+    glFlush()
+    
+def drawTriangle():
     # Define the vertex array
     vertices = [0.0, 1.0,
                -1.0, -1.0,
@@ -73,7 +65,7 @@ def drawTriangle():
 
 def drawRectangle():
     # Define the vertex array
-    vertices = [ -0.7, -0.5,
+    vertices = [-0.7, -0.5,
                  0.7, -0.5,
                  0.7,  0.5,
                 -0.7,  0.5]
