@@ -23,11 +23,14 @@ class Camera:
         new_camera_x = gameObject.position.x + scaled_mouseX * 0.01  # added scaling for mouse influence
         new_camera_y = gameObject.position.y + scaled_mouseY * 0.01
     
-        # Update the camera position
-        self.position = Vector2(new_camera_x, new_camera_y)
+        # Calculate the offset based on the mouse movement
+        offsetX = (mouseX - 600) * 0.001  # Assuming 1200x1200 window, refactor this later
+        offsetY = (mouseY - 600) * 0.001
+    
+        # Update the camera position based on GameObject's position and the mouse offset
+        self.position.x = gameObject.position.x + offsetX
+        self.position.y = gameObject.position.y + offsetY
+    
     
         print(f"Camera position after update: {self.position.x} | {self.position.y}")
         print(f"GameObject position after camera update: {gameObject.position.x} | {gameObject.position.y}")
-        
-        # Need to keep updating the position while mouse is on the movement
-        glutPostRedisplay()

@@ -17,6 +17,8 @@ player = GameObject(Vector2(0.1, 0.2), (1.0, 0.5, 0.0), 10.0, 0.1, camera)
 
 gameObjectManager.addObject(player)
 
+mouse_pressed = False
+
 def main():
     print("Starting...")
     glutInit(sys.argv)
@@ -29,16 +31,31 @@ def main():
     
     glutKeyboardFunc(keyboard)
     
-    # Add this line to handle mouse movement
+    # Lines to handle mouse movement
+    glutMouseFunc(mouseButton)
     glutMotionFunc(mouseDrag)
     
     glutMainLoop()
     print("Ending...")
-    
-def mouseDrag(x, y):
-    # Update the camera position in real-time
-    player.inputManager.handleMouseMovement(x, y)
 
+def mouseButton(button, state, x, y):
+    global mouse_pressed
+    if button == GLUT_LEFT_BUTTON:
+        if state == GLUT_DOWN:
+            mouse_pressed = True
+        else:
+            mouse_pressed = False
+            recenterCamera()  # Re-center when the button is released
+
+def mouseDrag(x, y):
+    if mouse_pressed:
+        player.inputManager.handleMouseMovement(x, y)
+        # Need to keep updating the position while mouse is on the movement
+        glutPostRedisplay()
+
+
+def recenterCamera():
+    camera.position = player.position
 
 def init():
     glClearColor(0.0,0.0,0.0,1.0)
