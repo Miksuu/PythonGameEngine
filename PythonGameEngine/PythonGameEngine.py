@@ -8,15 +8,17 @@ from GameObject import GameObject
 from TriangleGameObject import TriangleGameObject
 from GameObjectManager import GameObjectManager
 from Vector2 import Vector2
+from WindowManagement import WindowManagement
 
 gameObjectManager = GameObjectManager()
+windowManagement = WindowManagement(gameObjectManager)
 
 camera = Camera()
 
 projectileCount = 0
 
-# name, x, y positions as Vector2, color, pointSize, speed, camera ref
-player = GameObject("Player", Vector2(0.1, 0.2), (1.0, 0.5, 0.0), 10.0, 0.1, camera)
+# name, x, y positions as Vector2, color, speed, camera ref
+player = GameObject("Player", Vector2(0.1, 0.2), (1.0, 0.5, 0.0), 0.1, camera)
 
 gameObjectManager.addObject(player)
 
@@ -24,13 +26,7 @@ draggingMouse = False
 
 def main():
     print("Starting...")
-    glutInit(sys.argv)
-    glutInitDisplayMode(GLUT_SINGLE|GLUT_RGB)
-    glutInitWindowSize(1200,1200)
-    glutInitWindowPosition(50,50)
-    glutCreateWindow(b'test')
-    glutDisplayFunc(plotpoints)
-    init()
+    windowManagement.setupWindow()
     
     glutKeyboardFunc(keyboard)
     
@@ -52,9 +48,12 @@ def mouseButton(button, state, x, y):
 
         # Shooting mechanics implementation
         if button == GLUT_LEFT_BUTTON:
-            # x, y positions as Vector2, color, pointSize, speed, camera ref, velocity
-            projectile_velocity = Vector2(0.05, 0.05)  # Add a velocity vector for the projectile
-            projectile = TriangleGameObject("Bullet_" + str(projectileCount), Vector2(player.position.x, player.position.y), (0.2, 1.0, 0.2), 10.0, 0.1, projectile_velocity)
+            # x, y positions as Vector2, color, speed, camera ref, velocity
+            projectilePosition = Vector2(player.position.x, player.position.y)
+            projectileColor = (0.2, 1.0, 0.2);
+            projectileVelocity = Vector2(0.05, 0.05)  # Add a velocity vector for the projectile
+
+            projectile = TriangleGameObject("Bullet_" + str(projectileCount), projectilePosition, projectileColor, 0.1, projectileVelocity)
             gameObjectManager.addObject(projectile)
     else:
         draggingMouse = False
@@ -67,17 +66,6 @@ def mouseDrag(x, y):
 
 def recenterCamera():
     camera.position = player.position
-
-def init():
-    glClearColor(0.0,0.0,0.0,1.0)
-    gluOrtho2D(-1.0,1.0,-1.0,1.0)
-
-def plotpoints():
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-    glLoadIdentity()
-    gameObjectManager.handleGameLoop()
-    glutSwapBuffers()
-    glFlush() 
 
 def keyboard(key, x, y):
     player.inputManager.move(key)

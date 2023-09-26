@@ -2,14 +2,12 @@ from OpenGL.GL import *
 from OpenGL.GLU import*
 from OpenGL.GLUT import*
 
-
 from Camera import Camera
 
 class Renderer:
-    def __init__(self, color, pointSize, camera):
+    def __init__(self, color,  camera):
         self.camera = camera
         self.color = color
-        self.pointSize = pointSize
 
     def drawRectangle(self, position):
         # Apply camera transformations
