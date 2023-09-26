@@ -23,4 +23,6 @@ class GameObject:
     def handleGameLoop(self):
         self.renderer.drawRectangle(self.position)
         coordinates_text = f"({self.position.x}, {self.position.y})"
+        self.renderer.setTextColor((1.0, 1.0, 1.0))  # Set text color to white
         self.renderer.drawText(self.position, coordinates_text)
+        self.renderer.resetColor()  # Reset to original color
