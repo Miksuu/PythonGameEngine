@@ -30,7 +30,8 @@ def main():
     glutInitWindowPosition(50,50)
     glutCreateWindow(b'test')
     glutDisplayFunc(plotpoints)
-    init()
+    glClearColor(0.0,0.0,0.0,1.0)
+    gluOrtho2D(-1.0,1.0,-1.0,1.0)
     
     glutKeyboardFunc(keyboard)
     
@@ -67,10 +68,6 @@ def mouseDrag(x, y):
 
 def recenterCamera():
     camera.position = player.position
-
-def init():
-    glClearColor(0.0,0.0,0.0,1.0)
-    gluOrtho2D(-1.0,1.0,-1.0,1.0)
 
 def plotpoints():
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
