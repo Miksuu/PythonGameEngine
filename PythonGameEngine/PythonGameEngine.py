@@ -13,8 +13,10 @@ gameObjectManager = GameObjectManager()
 
 camera = Camera()
 
-# x, y positions as Vector2, color, pointSize, speed, camera ref
-player = GameObject(Vector2(0.1, 0.2), (1.0, 0.5, 0.0), 10.0, 0.1, camera)
+projectileCount = 0
+
+# name, x, y positions as Vector2, color, pointSize, speed, camera ref
+player = GameObject("Player", Vector2(0.1, 0.2), (1.0, 0.5, 0.0), 10.0, 0.1, camera)
 
 gameObjectManager.addObject(player)
 
@@ -52,7 +54,7 @@ def mouseButton(button, state, x, y):
         if button == GLUT_LEFT_BUTTON:
             # x, y positions as Vector2, color, pointSize, speed, camera ref, velocity
             projectile_velocity = Vector2(0.05, 0.05)  # Add a velocity vector for the projectile
-            projectile = TriangleGameObject(Vector2(player.position.x, player.position.y), (0.2, 1.0, 0.2), 10.0, 0.1, projectile_velocity)
+            projectile = TriangleGameObject("Bullet_" + str(projectileCount), Vector2(player.position.x, player.position.y), (0.2, 1.0, 0.2), 10.0, 0.1, projectile_velocity)
             gameObjectManager.addObject(projectile)
     else:
         draggingMouse = False
