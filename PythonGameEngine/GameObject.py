@@ -22,3 +22,5 @@ class GameObject:
         
     def handleGameLoop(self):
         self.renderer.drawRectangle(self.position)
+        coordinates_text = f"({self.position.x}, {self.position.y})"
+        self.renderer.drawText(self.position, coordinates_text)

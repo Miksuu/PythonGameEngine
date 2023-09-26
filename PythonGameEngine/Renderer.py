@@ -1,4 +1,6 @@
 from OpenGL.GL import *
+from OpenGL.GLU import*
+from OpenGL.GLUT import*
 
 from Camera import Camera
 
@@ -49,3 +51,9 @@ class Renderer:
     
         # Disable vertex array
         glDisableClientState(GL_VERTEX_ARRAY)   
+
+    #Debugging tools
+    def drawText(self, position, text):
+        glRasterPos2f(position.x, position.y)
+        for char in text:
+            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, ord(char))
