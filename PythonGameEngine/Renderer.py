@@ -61,7 +61,7 @@ class Renderer:
     def resetColor(self):
         glColor3f(self.color[0], self.color[1], self.color[2])
 
-    def drawText(self, position, text):
+    def drawText(self, name , position, text):
         glRasterPos2f(position.x, position.y)
         for char in text:
             glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, ord(char))

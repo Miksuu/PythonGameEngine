@@ -6,7 +6,8 @@ from Vector2 import Vector2
 from InputManager import InputManager
 
 class GameObject:
-    def __init__(self, position, color, pointSize, speed, camera):
+    def __init__(self, name, position, color, pointSize, speed, camera):
+        self.name = name
         self.position = Vector2(position.x, position.y)
         self.color = color
         self.pointSize = pointSize
@@ -22,7 +23,8 @@ class GameObject:
         
     def handleGameLoop(self):
         self.renderer.drawRectangle(self.position)
-        coordinates_text = f"({self.position.x}, {self.position.y})"
+        # Draw coordinates on top of the object, formatted to 2 decimal places
+        infoText = f"{self.name}({self.position.x:.2f}, {self.position.y:.2f})"
         self.renderer.setTextColor((1.0, 1.0, 1.0))  # Set text color to white
-        self.renderer.drawText(self.position, coordinates_text)
+        self.renderer.drawText(self.name, self.position, infoText)
         self.renderer.resetColor()  # Reset to original color

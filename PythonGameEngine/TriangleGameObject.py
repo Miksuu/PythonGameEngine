@@ -4,8 +4,8 @@ from Vector2 import Vector2
 from GameObject import GameObject
 
 class TriangleGameObject(GameObject):
-    def __init__(self, position, color, pointSize, speed, velocity):
-        super().__init__(position, color, pointSize, speed, None)
+    def __init__(self, name , position, color, pointSize, speed, velocity):
+        super().__init__(name, position, color, pointSize, speed, None)
         self.velocity = velocity
         
     # Overridden method
