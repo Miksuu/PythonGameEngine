@@ -10,6 +10,12 @@ from GameObjectManager import GameObjectManager
 from Vector2 import Vector2
 from WindowManagement import WindowManagement
 
+# from OpenGL.GL import glGenBuffers, glBindBuffer, glBufferData, GL_ARRAY_BUFFER, GL_STATIC_DRAW
+# from OpenGL.GL import glGenVertexArrays, glBindVertexArray
+# from OpenGL.GL import glCreateShader, glShaderSource, glCompileShader, glGetShaderiv, GL_VERTEX_SHADER, GL_COMPILE_STATUS
+# from OpenGL.GL import glCreateProgram, glAttachShader, glLinkProgram, glGetProgramiv, GL_LINK_STATUS
+# from OpenGL.GL import glUseProgram, glEnableVertexAttribArray, glVertexAttribPointer, GL_FLOAT
+
 gameObjectManager = GameObjectManager()
 windowManagement = WindowManagement(gameObjectManager)
 
@@ -33,8 +39,37 @@ def main():
     # Lines to handle mouse movement
     glutMouseFunc(mouseButton)
     glutMotionFunc(mouseDrag)
-    
-    glutMainLoop()
+
+    # Initialize VBO
+    vbo = initializeVbo()
+
+    # Initialize Shaders
+    shader_program = initializeShaders()
+
+    # Main game loop
+    while True:
+        print("Starting MAINLOOP")
+
+        # Use the shader program
+        glUseProgram(shader_program)
+
+        # Bind the VBO
+        glBindBuffer(GL_ARRAY_BUFFER, vbo)
+
+        # Specify the layout of the vertex data
+        glEnableVertexAttribArray(0)
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * 4, ctypes.c_void_p(0))
+
+        # Draw the triangle
+        glDrawArrays(GL_TRIANGLES, 0, 3)
+
+        # Swap buffers, etc.
+        # ...
+        glutMainLoop()
+
+        print("Ending MAINLOOP")
+
+
     print("Ending...")
 
 def mouseButton(button, state, x, y):
@@ -69,5 +104,77 @@ def recenterCamera():
 
 def keyboard(key, x, y):
     player.inputManager.move(key)
+
+# Initialize a VBO
+def initializeVbo():
+    # Create a new VBO
+    vbo = glGenBuffers(1)
+    # Bind the VBO
+    glBindBuffer(GL_ARRAY_BUFFER, vbo)
+    
+    # Vertex data (x, y, z coordinates)
+    vertexData = [
+        -0.5, -0.5, 0.0,
+         0.5, -0.5, 0.0,
+         0.0,  0.5, 0.0
+    ]
+    
+    # Load vertex data into the VBO
+    glBufferData(GL_ARRAY_BUFFER, len(vertexData)*4, (ctypes.c_float * len(vertexData))(*vertexData), GL_STATIC_DRAW)
+    
+    return vbo
+
+# Initialize shaders
+def initializeShaders():
+    # Vertex Shader
+    vertex_shader_source = """
+    #version 330 core
+    layout (location = 0) in vec3 aPos;
+    void main()
+    {
+        gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
+    }
+    """
+    
+    vertex_shader = glCreateShader(GL_VERTEX_SHADER)
+    glShaderSource(vertex_shader, vertex_shader_source)
+    glCompileShader(vertex_shader)
+    
+    # Check for shader compile errors
+    if not glGetShaderiv(vertex_shader, GL_COMPILE_STATUS):
+        print("ERROR::SHADER::VERTEX::COMPILATION_FAILED")
+        return None
+    
+    # Fragment Shader
+    fragment_shader_source = """
+    #version 330 core
+    out vec4 FragColor;
+    void main()
+    {
+        FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);
+    }
+    """
+    
+    fragment_shader = glCreateShader(GL_FRAGMENT_SHADER)
+    glShaderSource(fragment_shader, fragment_shader_source)
+    glCompileShader(fragment_shader)
+    
+    # Check for shader compile errors
+    if not glGetShaderiv(fragment_shader, GL_COMPILE_STATUS):
+        print("ERROR::SHADER::FRAGMENT::COMPILATION_FAILED")
+        return None
+    
+    # Link shaders
+    shader_program = glCreateProgram()
+    glAttachShader(shader_program, vertex_shader)
+    glAttachShader(shader_program, fragment_shader)
+    glLinkProgram(shader_program)
+    
+    # Check for linking errors
+    if not glGetProgramiv(shader_program, GL_LINK_STATUS):
+        print("ERROR::SHADER::PROGRAM::LINKING_FAILED")
+        return None
+    
+    return shader_program
 
 main()
