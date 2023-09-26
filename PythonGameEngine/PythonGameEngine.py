@@ -58,7 +58,7 @@ def mouseButton(button, state, x, y):
             projectileColor = (0.2, 1.0, 0.2);
             projectileVelocity = Vector2(0.05, 0.05)  # Add a velocity vector for the projectile
 
-            projectile = TriangleGameObject("Bullet_" + str(projectileCount), projectilePosition, projectileColor, 0.1, projectile_velocity)
+            projectile = TriangleGameObject("Bullet_" + str(projectileCount), projectilePosition, projectileColor, 0.1, projectileVelocity)
             gameObjectManager.addObject(projectile)
     else:
         draggingMouse = False
