@@ -2,7 +2,6 @@ from OpenGL.GL import *
 from OpenGL.GLU import*
 from OpenGL.GLUT import*
 
-
 from Camera import Camera
 
 class Renderer:
