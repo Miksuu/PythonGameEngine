@@ -10,12 +10,6 @@ from GameObjectManager import GameObjectManager
 from Vector2 import Vector2
 from WindowManagement import WindowManagement
 
-# from OpenGL.GL import glGenBuffers, glBindBuffer, glBufferData, GL_ARRAY_BUFFER, GL_STATIC_DRAW
-# from OpenGL.GL import glGenVertexArrays, glBindVertexArray
-# from OpenGL.GL import glCreateShader, glShaderSource, glCompileShader, glGetShaderiv, GL_VERTEX_SHADER, GL_COMPILE_STATUS
-# from OpenGL.GL import glCreateProgram, glAttachShader, glLinkProgram, glGetProgramiv, GL_LINK_STATUS
-# from OpenGL.GL import glUseProgram, glEnableVertexAttribArray, glVertexAttribPointer, GL_FLOAT
-
 gameObjectManager = GameObjectManager()
 windowManagement = WindowManagement(gameObjectManager)
 
@@ -63,8 +57,7 @@ def main():
         # Draw the triangle
         glDrawArrays(GL_TRIANGLES, 0, 3)
 
-        # Swap buffers, etc.
-        # ...
+        # Run the GLUT mainloop
         glutMainLoop()
 
         print("Ending MAINLOOP")
@@ -127,7 +120,7 @@ def initializeVbo():
 # Initialize shaders
 def initializeShaders():
     # Vertex Shader
-    vertex_shader_source = """
+    vertexShaderSource = """
     #version 330 core
     layout (location = 0) in vec3 aPos;
     void main()
@@ -136,17 +129,17 @@ def initializeShaders():
     }
     """
     
-    vertex_shader = glCreateShader(GL_VERTEX_SHADER)
-    glShaderSource(vertex_shader, vertex_shader_source)
-    glCompileShader(vertex_shader)
+    vertexShader = glCreateShader(GL_VERTEX_SHADER)
+    glShaderSource(vertexShader, vertexShaderSource)
+    glCompileShader(vertexShader)
     
     # Check for shader compile errors
-    if not glGetShaderiv(vertex_shader, GL_COMPILE_STATUS):
+    if not glGetShaderiv(vertexShader, GL_COMPILE_STATUS):
         print("ERROR::SHADER::VERTEX::COMPILATION_FAILED")
         return None
     
     # Fragment Shader
-    fragment_shader_source = """
+    fragmentShaderSource = """
     #version 330 core
     out vec4 FragColor;
     void main()
@@ -156,7 +149,7 @@ def initializeShaders():
     """
     
     fragment_shader = glCreateShader(GL_FRAGMENT_SHADER)
-    glShaderSource(fragment_shader, fragment_shader_source)
+    glShaderSource(fragment_shader, fragmentShaderSource)
     glCompileShader(fragment_shader)
     
     # Check for shader compile errors
@@ -165,16 +158,16 @@ def initializeShaders():
         return None
     
     # Link shaders
-    shader_program = glCreateProgram()
-    glAttachShader(shader_program, vertex_shader)
-    glAttachShader(shader_program, fragment_shader)
-    glLinkProgram(shader_program)
+    shaderProgram = glCreateProgram()
+    glAttachShader(shaderProgram, vertexShader)
+    glAttachShader(shaderProgram, fragment_shader)
+    glLinkProgram(shaderProgram)
     
     # Check for linking errors
-    if not glGetProgramiv(shader_program, GL_LINK_STATUS):
+    if not glGetProgramiv(shaderProgram, GL_LINK_STATUS):
         print("ERROR::SHADER::PROGRAM::LINKING_FAILED")
         return None
     
-    return shader_program
+    return shaderProgram
 
 main()
