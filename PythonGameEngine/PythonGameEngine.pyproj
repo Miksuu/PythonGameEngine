@@ -22,7 +22,15 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Camera.py" />
+    <Compile Include="GameObject.py" />
+    <Compile Include="GameObjectManager.py" />
+    <Compile Include="InputManager.py" />
     <Compile Include="PythonGameEngine.py" />
+    <Compile Include="Renderer.py" />
+    <Compile Include="TriangleGameObject.py" />
+    <Compile Include="Vector2.py" />
+    <Compile Include="WindowManagement.py" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="CondaEnv|CondaEnv|env" />
