@@ -40,12 +40,17 @@ def main():
 
 def mouseButton(button, state, x, y):
     global draggingMouse
-    print(str(button))    
 
     if state == GLUT_DOWN:
+        # Dragging mouse, camera control
         if button == GLUT_RIGHT_BUTTON:
             draggingMouse = True
             ##recenterCamera()  # Re-center when the button is released
+
+        # 
+        if button == GLUT_LEFT_BUTTON:
+            # WIP shooting mechanic
+            pass
     else:
         draggingMouse = False
 
