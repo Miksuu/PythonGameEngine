@@ -3,37 +3,60 @@ from OpenGL.GLU import*
 from OpenGL.GLUT import*
 
 # Engine components
+from Camera import Camera
 from GameObject import GameObject
 from GameObjectManager import GameObjectManager
 from Vector2 import Vector2
 
-# Game class definitions
-from InputManager import InputManager
-
 gameObjectManager = GameObjectManager()
-# Create a red point as a game object
-# x, y positions as Vector2, color, pointSize, speed
-player = GameObject(Vector2(0.1, 0.2), (1.0, 0.5, 0.0), 10.0, 0.1)
 
-# Add input to the player
-inputManager = InputManager(player)
+camera = Camera()
+
+# x, y positions as Vector2, color, pointSize, speed, camera ref
+player = GameObject(Vector2(0.1, 0.2), (1.0, 0.5, 0.0), 10.0, 0.1, camera)
 
 gameObjectManager.addObject(player)
+
+mouse_pressed = False
 
 def main():
     print("Starting...")
     glutInit(sys.argv)
     glutInitDisplayMode(GLUT_SINGLE|GLUT_RGB)
-    glutInitWindowSize(500,500)
+    glutInitWindowSize(1200,1200)
     glutInitWindowPosition(50,50)
     glutCreateWindow(b'test')
     glutDisplayFunc(plotpoints)
     init()
     
     glutKeyboardFunc(keyboard)
-
+    
+    # Lines to handle mouse movement
+    glutMouseFunc(mouseButton)
+    glutMotionFunc(mouseDrag)
+    
     glutMainLoop()
     print("Ending...")
+
+def mouseButton(button, state, x, y):
+    global mouse_pressed
+    if button == GLUT_LEFT_BUTTON:
+        if state == GLUT_DOWN:
+            mouse_pressed = True
+            ##recenterCamera()  # Re-center when the button is released
+        else:
+            mouse_pressed = False
+            ##recenterCamera()  # Re-center when the button is released
+
+def mouseDrag(x, y):
+    if mouse_pressed:
+        player.inputManager.handleMouseMovement(x, y)
+        # Need to keep updating the position while mouse is on the movement
+        glutPostRedisplay()
+
+
+def recenterCamera():
+    camera.position = player.position
 
 def init():
     glClearColor(0.0,0.0,0.0,1.0)
@@ -47,6 +70,6 @@ def plotpoints():
     glFlush() 
 
 def keyboard(key, x, y):
-    inputManager.move(key)
+    player.inputManager.move(key)
 
 main()

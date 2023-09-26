@@ -1,11 +1,17 @@
 from OpenGL.GL import *
 
+from Camera import Camera
+
 class Renderer:
-    def __init__(self, color, pointSize):
+    def __init__(self, color, pointSize, camera):
+        self.camera = camera
         self.color = color
         self.pointSize = pointSize
 
     def drawRectangle(self, position):
+        # Apply camera transformations
+        glTranslatef(-self.camera.position.x, -self.camera.position.y, 0)        
+
         # Set the color
         glColor3f(self.color[0], self.color[1], self.color[2])
         
