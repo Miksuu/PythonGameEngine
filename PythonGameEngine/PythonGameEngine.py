@@ -15,7 +15,7 @@ camera = Camera()
 
 projectileCount = 0
 
-# name, x, y positions as Vector2, color,  speed, camera ref
+# name, x, y positions as Vector2, color, speed, camera ref
 player = GameObject("Player", Vector2(0.1, 0.2), (1.0, 0.5, 0.0), 0.1, camera)
 
 gameObjectManager.addObject(player)
