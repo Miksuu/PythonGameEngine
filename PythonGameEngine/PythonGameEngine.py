@@ -5,6 +5,7 @@ from OpenGL.GLUT import*
 # Engine components
 from Camera import Camera
 from GameObject import GameObject
+from TriangleGameObject import TriangleGameObject
 from GameObjectManager import GameObjectManager
 from Vector2 import Vector2
 
@@ -49,8 +50,10 @@ def mouseButton(button, state, x, y):
 
         # Shooting mechanics implementation
         if button == GLUT_LEFT_BUTTON:
-            # WIP shooting mechanic
-            pass
+            # x, y positions as Vector2, color, pointSize, speed, camera ref, velocity
+            projectile_velocity = Vector2(0.05, 0.05)  # Add a velocity vector for the projectile
+            projectile = TriangleGameObject(Vector2(player.position.x, player.position.y), (0.2, 1.0, 0.2), 10.0, 0.1, projectile_velocity)
+            gameObjectManager.addObject(projectile)
     else:
         draggingMouse = False
 

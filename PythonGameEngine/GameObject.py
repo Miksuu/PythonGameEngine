@@ -1,4 +1,4 @@
-from turtle import position
+from turtle import position, update
 from Renderer import Renderer
 from Vector2 import Vector2
 
@@ -12,11 +12,13 @@ class GameObject:
         self.pointSize = pointSize
         self.speed = speed
 
-        # Add input to the player
-        self.inputManager = InputManager(self, camera)
+        # Add input to the player only
+        if camera is None:
+            pass
+        else:
+            self.inputManager = InputManager(self, camera)
 
         self.renderer = Renderer(color, pointSize, camera)
         
     def handleGameLoop(self):
         self.renderer.drawRectangle(self.position)
-            

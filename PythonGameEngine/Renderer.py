@@ -31,11 +31,14 @@ class Renderer:
         # Disable vertex array
         glDisableClientState(GL_VERTEX_ARRAY)
         
-    def drawTriangle():
+    def drawTriangle(self):
+        # Set the color
+        glColor3f(self.color[0], self.color[1], self.color[2])        
+
         # Define the vertex array
-        vertices = [0.0, 1.0,
-                   -1.0, -1.0,
-                    1.0, -1.0]
+        vertices = [0.0, 0.01,
+                   -0.01, -0.01,
+                    0.01, -0.01]
     
         # Enable vertex array and specify its data
         glEnableClientState(GL_VERTEX_ARRAY)
