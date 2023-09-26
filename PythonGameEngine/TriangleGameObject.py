@@ -10,7 +10,8 @@ class TriangleGameObject(GameObject):
         
     # Overridden method
     def handleGameLoop(self):
-        self.update()  # Corrected to 'self.update()'
+        #print(str(self.position.x) + " | " + str(self.position.y))
+        self.update()
         self.renderer.drawTriangle()
 
     def update(self):
