@@ -47,7 +47,7 @@ def mouseButton(button, state, x, y):
             draggingMouse = True
             ##recenterCamera()  # Re-center when the button is released
 
-        # 
+        # Shooting mechanics implementation
         if button == GLUT_LEFT_BUTTON:
             # WIP shooting mechanic
             pass
