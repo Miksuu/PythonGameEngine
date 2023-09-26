@@ -17,7 +17,7 @@ player = GameObject(Vector2(0.1, 0.2), (1.0, 0.5, 0.0), 10.0, 0.1, camera)
 
 gameObjectManager.addObject(player)
 
-mouse_pressed = False
+draggingMouse = False
 
 def main():
     print("Starting...")
@@ -39,21 +39,21 @@ def main():
     print("Ending...")
 
 def mouseButton(button, state, x, y):
-    global mouse_pressed
-    if button == GLUT_LEFT_BUTTON:
-        if state == GLUT_DOWN:
-            mouse_pressed = True
+    global draggingMouse
+    print(str(button))    
+
+    if state == GLUT_DOWN:
+        if button == GLUT_RIGHT_BUTTON:
+            draggingMouse = True
             ##recenterCamera()  # Re-center when the button is released
-        else:
-            mouse_pressed = False
-            ##recenterCamera()  # Re-center when the button is released
+    else:
+        draggingMouse = False
 
 def mouseDrag(x, y):
-    if mouse_pressed:
+    if draggingMouse:
         player.inputManager.handleMouseMovement(x, y)
         # Need to keep updating the position while mouse is on the movement
         glutPostRedisplay()
-
 
 def recenterCamera():
     camera.position = player.position
