@@ -29,6 +29,6 @@ class InputManager:
 
 
     def handleMouseMovement(self, x, y):
-        print(f"Mouse moved to: ({x}, {y})")
+        #print(f"Mouse moved to: ({x}, {y})")
         self.camera.updateOrientation(x, y, self.objectToControl)
     
