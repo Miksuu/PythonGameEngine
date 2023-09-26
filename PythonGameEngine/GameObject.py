@@ -6,11 +6,10 @@ from Vector2 import Vector2
 from InputManager import InputManager
 
 class GameObject:
-    def __init__(self, name, position, color, pointSize, speed, camera):
+    def __init__(self, name, position, color, speed, camera):
         self.name = name
         self.position = Vector2(position.x, position.y)
         self.color = color
-        self.pointSize = pointSize
         self.speed = speed
 
         # Add input to the player only
@@ -19,7 +18,7 @@ class GameObject:
         else:
             self.inputManager = InputManager(self, camera)
 
-        self.renderer = Renderer(color, pointSize, camera)
+        self.renderer = Renderer(color,  camera)
         
     def handleGameLoop(self):
         self.renderer.drawRectangle(self.position)
