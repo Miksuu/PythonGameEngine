@@ -43,9 +43,10 @@ def mouseButton(button, state, x, y):
     if button == GLUT_LEFT_BUTTON:
         if state == GLUT_DOWN:
             mouse_pressed = True
+            ##recenterCamera()  # Re-center when the button is released
         else:
             mouse_pressed = False
-            recenterCamera()  # Re-center when the button is released
+            ##recenterCamera()  # Re-center when the button is released
 
 def mouseDrag(x, y):
     if mouse_pressed:
