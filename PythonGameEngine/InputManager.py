@@ -11,7 +11,7 @@ class InputManager:
         self.camera = camera
         
     def move(self, key):
-        print(f"GameObject position before move: {self.objectToControl.position.x} | {self.objectToControl.position.y}")
+        #print(f"GameObject position before move: {self.objectToControl.position.x} | {self.objectToControl.position.y}")
         if ord(key) == ord('w'):  # Move Up
             self.objectToControl.position.y += 0.1
         elif ord(key) == ord('s'):  # Move Down
@@ -22,10 +22,10 @@ class InputManager:
             self.objectToControl.position.x += 0.1
 
         if ord(key) == 27:  # ESC key
-            print("Exiting...")
+            #print("Exiting...")
             glutLeaveMainLoop()
         glutPostRedisplay()
-        print(f"GameObject position after move: {self.objectToControl.position.x} | {self.objectToControl.position.y}")
+        #print(f"GameObject position after move: {self.objectToControl.position.x} | {self.objectToControl.position.y}")
 
 
     def handleMouseMovement(self, x, y):
