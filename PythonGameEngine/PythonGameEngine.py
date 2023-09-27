@@ -59,6 +59,8 @@ def main():
 
         # Run the GLUT mainloop
         glutMainLoop()
+        
+        gameObjectManager.handleGameLoop()
 
         print("Ending MAINLOOP")
 
