@@ -1,4 +1,5 @@
-    public enum LogLevel
+﻿class LogLevel
+{
     ERROR = 0,
     WARNING = 1,
     IMPORTANT = 2,
@@ -8,3 +9,4 @@
     SET_VERBOSE = 6,
     GET_VERBOSE = 7,
     VERBOSE = 8,
+}
