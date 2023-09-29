@@ -107,11 +107,11 @@ def initializeVbo():
     # Bind the VBO
     glBindBuffer(GL_ARRAY_BUFFER, vbo)
     
-    # Vertex data (x, y, z coordinates)
+    # Vertex data (x, y, coordinates)
     vertexData = [
-        -0.5, -0.5, 0.0,
-         0.5, -0.5, 0.0,
-         0.0,  0.5, 0.0
+        -0.5, -0.5,
+         0.5, -0.5,
+         0.0,  0.5,
     ]
     
     # Load vertex data into the VBO
