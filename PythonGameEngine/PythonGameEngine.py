@@ -56,14 +56,13 @@ def main():
 
         # Draw the triangle
         glDrawArrays(GL_TRIANGLES, 0, 3)
-
-        # Run the GLUT mainloop
-        glutMainLoop()
         
         gameObjectManager.handleGameLoop()
 
-        print("Ending MAINLOOP")
+        # Run the GLUT mainloop
+        glutMainLoop()    
 
+        print("Ending MAINLOOP")
 
     print("Ending...")
 
