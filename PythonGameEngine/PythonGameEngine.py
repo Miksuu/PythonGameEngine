@@ -38,14 +38,14 @@ def main():
     vbo = initializeVbo()
 
     # Initialize Shaders
-    shader_program = initializeShaders()
+    shaderProgram = initializeShaders()
 
     # Main game loop
     while True:
         print("Starting MAINLOOP")
 
         # Use the shader program
-        glUseProgram(shader_program)
+        glUseProgram(shaderProgram)
 
         # Bind the VBO
         glBindBuffer(GL_ARRAY_BUFFER, vbo)
