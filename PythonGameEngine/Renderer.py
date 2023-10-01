@@ -6,6 +6,7 @@ from Camera import Camera
 
 class Renderer:
     def __init__(self, vertices, color, camera):
+        self.vertices = vertices
         self.camera = camera
         self.color = color
         
@@ -73,6 +74,16 @@ class Renderer:
         # Draw the triangle
         glDrawArrays(GL_TRIANGLES, 0, 3)
 
+    def updateTriangleVertexData(self, position):
+        # Make sure the length of triangleVertexData is a multiple of 2 for x, y coordinates
+        if len(self.vertices) % 2 != 0:
+            raise ValueError("Invalid length for triangleVertexData")
+    
+        # Update the triangle vertex data based on the position
+        for i in range(0, len(self.vertices), 2):
+            self.vertices[i] += position.x  # Update x-coordinate
+            self.vertices[i+1] += position.y  # Update y-coordinate
+            
     #Debugging tools, such as drawing the coordinates
     def setTextColor(self, color):
         glColor3f(color[0], color[1], color[2])

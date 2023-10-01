@@ -24,6 +24,7 @@ class GameObject:
     def handleGameLoop(self):
         #self.renderer.drawVboTriangle(self.position)
         self.renderer.drawVboTriangle()
+        self.renderer.updateTriangleVertexData(self.position)
         # Draw coordinates on top of the object, formatted to 2 decimal places
         infoText = f"{self.name}({self.position.x:.2f}, {self.position.y:.2f})"
         self.renderer.setTextColor((1.0, 1.0, 1.0))  # Set text color to white
