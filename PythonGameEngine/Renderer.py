@@ -11,6 +11,8 @@ class Renderer:
         self.vertices = vertices
         self.camera = camera
         
+        self.debugColor = [1, 1, 0.5]
+
         self.shader = Shader(color);
         
         self.vbo = self.initializeVboData(vertices)
@@ -52,13 +54,12 @@ class Renderer:
         glBindBuffer(GL_ARRAY_BUFFER, self.vbo)
         glBufferSubData(GL_ARRAY_BUFFER, 0, len(self.vertices) * 4, (ctypes.c_float * len(self.vertices))(*self.vertices))
             
-        
     #Debugging tools, such as drawing the coordinates
     def setTextColor(self, color):
-        glColor3f(color[0], color[1], color[2])
+        glColor3f(self.debugColor[0], self.debugColor[1], self.debugColor[2])
 
     def resetColor(self):
-        glColor3f(self.color[0], self.color[1], self.color[2])
+        glColor3f(self.debugColor[0], self.debugColor[1], self.debugColor[2])
 
     def drawText(self, name , position, text):
         glRasterPos2f(position.x, position.y)
