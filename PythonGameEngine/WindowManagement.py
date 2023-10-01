@@ -8,14 +8,16 @@ from GameObjectManager import GameObjectManager
 gameObjectManager = GameObjectManager
 
 class WindowManagement:
-    def __init__(self, gameObjectManager):
+    def __init__(self, gameObjectManager, windowSizeX, windowSizeY):
         # Setup the GameObjectManager ref
         self.gameObjectManager = gameObjectManager
+        self.windowSizeX = windowSizeX
+        self.windowSizeY = windowSizeY
     
     def setupWindow(self):
         glutInit(sys.argv)
         glutInitDisplayMode(GLUT_SINGLE|GLUT_RGB)
-        glutInitWindowSize(1200,1200)
+        glutInitWindowSize(self.windowSizeX,self.windowSizeY)
         glutInitWindowPosition(50,50)
         glutCreateWindow(b'test')
         glutDisplayFunc(self.plotpoints)

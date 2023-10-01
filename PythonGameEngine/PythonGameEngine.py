@@ -10,7 +10,7 @@ from Vector2 import Vector2
 from WindowManagement import WindowManagement
 
 gameObjectManager = GameObjectManager()
-windowManagement = WindowManagement(gameObjectManager)
+windowManagement = WindowManagement(gameObjectManager, 1200, 1200)
 
 camera = Camera()
 
