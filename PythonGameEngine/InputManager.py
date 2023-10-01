@@ -27,7 +27,6 @@ class InputManager:
         glutPostRedisplay()
         #print(f"GameObject position after move: {self.objectToControl.position.x} | {self.objectToControl.position.y}")
 
-
     def handleMouseMovement(self, x, y):
         #print(f"Mouse moved to: ({x}, {y})")
         self.camera.updateOrientation(x, y, self.objectToControl)
