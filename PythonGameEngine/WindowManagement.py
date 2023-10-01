@@ -8,11 +8,13 @@ from GameObjectManager import GameObjectManager
 gameObjectManager = GameObjectManager
 
 class WindowManagement:
-    def __init__(self, gameObjectManager, windowSizeX, windowSizeY):
+    windowSizeX = 1337
+    windowSizeY = 1337
+    def __init__(self, gameObjectManager, _windowSizeX, _windowSizeY):
         # Setup the GameObjectManager ref
         self.gameObjectManager = gameObjectManager
-        self.windowSizeX = windowSizeX
-        self.windowSizeY = windowSizeY
+        windowSizeX = _windowSizeX
+        windowSizeY = _windowSizeY
     
     def setupWindow(self):
         glutInit(sys.argv)

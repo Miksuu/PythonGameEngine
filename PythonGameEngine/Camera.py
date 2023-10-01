@@ -3,6 +3,7 @@ from OpenGL.GLU import*
 from OpenGL.GLUT import*
 
 from Vector2 import Vector2
+from WindowManagement import WindowManagement
 
 class Camera:
     def __init__(self):
@@ -24,8 +25,8 @@ class Camera:
         new_camera_y = gameObject.position.y + scaled_mouseY * 0.01
     
         # Calculate the offset based on the mouse movement
-        offsetX = (mouseX - 600) * 0.001  # Assuming 1200x1200 window, refactor this later
-        offsetY = (mouseY - 600) * 0.001
+        offsetX = (mouseX - WindowManagement.windowSizeX) * 0.001
+        offsetY = (mouseY - WindowManagement.windowSizeY) * 0.001
     
         # Update the camera position based on GameObject's position and the mouse offset
         self.position.x = gameObject.position.x + offsetX
