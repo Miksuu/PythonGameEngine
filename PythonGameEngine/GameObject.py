@@ -23,7 +23,7 @@ class GameObject:
         self.vertices = vertices
         
     def handleGameLoop(self):
-        self.renderer.setShaderUniforms()        
+        self.renderer.shader.setShaderUniforms()        
 
         self.renderer.updateVertexData(self.position)
         self.renderer.drawVboRectangle()
