@@ -9,7 +9,9 @@ class Renderer:
     def __init__(self, vertices, color, camera):
         self.originalVertices = vertices.copy()
         self.vertices = vertices
-        self.camera = camera
+        
+        if camera != None:
+            self.camera = camera
         
         self.debugColor = [1, 1, 0.5]
 

@@ -2,24 +2,27 @@ from tkinter import SE
 from turtle import position, update
 from Renderer import Renderer
 from Vector2 import Vector2
+from Camera import Camera
 
 # Game class definitions
 from InputManager import InputManager
 
 class GameObject:
-    def __init__(self, name, vertices, position, color, speed, camera):
+    def __init__(self, name, vertices, position, color, speed):
         self.name = name
         self.position = Vector2(position.x, position.y)
         self.color = color
         self.speed = speed
 
         # Add input to the player only
-        if camera is None:
+        if self.name != "Player":
+            self.renderer = Renderer(vertices, color)
             pass
         else:
-            self.inputManager = InputManager(self, camera)
-
-        self.renderer = Renderer(vertices, color, camera)
+            self.camera = Camera()
+            self.inputManager = InputManager(self, self.camera)
+            self.renderer = Renderer(vertices, color, self.camera)
+        
         self.vertices = vertices
         
     def handleGameLoop(self):
