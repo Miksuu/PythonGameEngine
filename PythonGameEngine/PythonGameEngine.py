@@ -5,7 +5,6 @@ from OpenGL.GLUT import*
 # Engine components
 from Camera import Camera
 from GameObject import GameObject
-# from TriangleGameObject import TriangleGameObject
 from GameObjectManager import GameObjectManager
 from Vector2 import Vector2
 from WindowManagement import WindowManagement
@@ -20,11 +19,11 @@ projectileCount = 0
 draggingMouse = False
 
 # Temp, add these to some other class
-# Triangle Vertex data (x, y coordinates)
-triangleVertexData = [
-    0.0, 0.01,
-    -0.01, -0.01,
-    0.01, -0.01]
+# Vertex data (x, y coordinates)
+vertexData = [-0.1, -0.2,
+               0.1, -0.2,
+               0.1,  0.2,
+              -0.1,  0.2]
 
 def main():
     print("Starting...")
@@ -42,7 +41,7 @@ def main():
     shaderProgram = initializeShaders()
     
     # name, x, y positions as Vector2, color, speed, camera ref
-    player = GameObject("Player", triangleVertexData, Vector2(0.1, 0.2), (1.0, 0.5, 0.0), 0.1, camera)
+    player = GameObject("Player", vertexData, Vector2(0.1, 0.2), (1.0, 0.5, 0.0), 0.1, camera)
     gameObjectManager.addObject(player)
 
     # Main game loop
@@ -77,7 +76,7 @@ def mouseButton(button, state, x, y):
             projectileColor = (0.2, 1.0, 0.2);
             projectileVelocity = Vector2(0.05, 0.05)  # Add a velocity vector for the projectile
 
-            projectile = GameObject("Bullet_" + str(projectileCount), triangleVertexData, projectilePosition, projectileColor, 0.1, projectileVelocity)
+            projectile = GameObject("Bullet_" + str(projectileCount), vertexData, projectilePosition, projectileColor, 0.1, projectileVelocity)
             gameObjectManager.addObject(projectile)
     else:
         draggingMouse = False
@@ -111,7 +110,7 @@ def initializeShaders():
     
     # Check for shader compile errors
     if not glGetShaderiv(vertexShader, GL_COMPILE_STATUS):
-        print("ERROR::SHADER::VERTEX::COMPILATION_FAILED")
+        print("ERROR: SHADER VERTEX COMPILATION_FAILED")
         return None
     
     # Fragment Shader
@@ -120,7 +119,7 @@ def initializeShaders():
     out vec4 FragColor;
     void main()
     {
-        FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);
+        FragColor = vec4(0.5f, 0.5f, 0.2f, 1.0f);
     }
     """
     
@@ -130,7 +129,7 @@ def initializeShaders():
     
     # Check for shader compile errors
     if not glGetShaderiv(fragment_shader, GL_COMPILE_STATUS):
-        print("ERROR::SHADER::FRAGMENT::COMPILATION_FAILED")
+        print("ERROR: SHADER FRAGMENT COMPILATION_FAILED")
         return None
     
     # Link shaders
@@ -141,7 +140,7 @@ def initializeShaders():
     
     # Check for linking errors
     if not glGetProgramiv(shaderProgram, GL_LINK_STATUS):
-        print("ERROR::SHADER::PROGRAM::LINKING_FAILED")
+        print("ERROR SHADER PROGRAMLINKING_FAILED")
         return None
     
     return shaderProgram
