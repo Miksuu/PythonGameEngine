@@ -12,7 +12,7 @@ class TriangleGameObject(GameObject):
     def handleGameLoop(self):
         #print(str(self.position.x) + " | " + str(self.position.y))
         self.update()
-        self.renderer.drawTriangle()
+        self.renderer.drawVboTriangle()
 
     def update(self):
         self.position.x += self.velocity.x

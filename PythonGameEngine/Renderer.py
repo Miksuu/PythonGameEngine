@@ -5,9 +5,11 @@ from OpenGL.GLUT import*
 from Camera import Camera
 
 class Renderer:
-    def __init__(self, color,  camera):
+    def __init__(self, color, camera):
         self.camera = camera
         self.color = color
+        
+        self.vbo = self.initializeVboTriangle()
 
     def drawRectangle(self, position):
         # Apply camera transformations
@@ -32,25 +34,51 @@ class Renderer:
         # Disable vertex array
         glDisableClientState(GL_VERTEX_ARRAY)
         
-    def drawTriangle(self):
+    def initializeVboTriangle(self):
         # Set the color
-        glColor3f(self.color[0], self.color[1], self.color[2])        
+        #glColor3f(self.color[0], self.color[1], self.color[2])        
 
-        # Define the vertex array
-        vertices = [0.0, 0.01,
-                   -0.01, -0.01,
-                    0.01, -0.01]
+        # # Define the vertex array
+        # vertices = [0.0, 0.01,
+        #            -0.01, -0.01,
+        #             0.01, -0.01]
     
-        # Enable vertex array and specify its data
-        glEnableClientState(GL_VERTEX_ARRAY)
-        glVertexPointer(2, GL_FLOAT, 0, vertices)
+        # # Enable vertex array and specify its data
+        # glEnableClientState(GL_VERTEX_ARRAY)
+        # glVertexPointer(2, GL_FLOAT, 0, vertices)
     
+        # # Draw the triangle
+        # glDrawArrays(GL_TRIANGLES, 0, 3)
+    
+        # # Disable vertex array
+        # glDisableClientState(GL_VERTEX_ARRAY)
+
+        # Create a new VBO
+        vbo = glGenBuffers(1)
+        # Bind the VBO
+        glBindBuffer(GL_ARRAY_BUFFER, vbo)
+    
+        # Vertex data (x, y coordinates)
+        vertexData = [
+            -0.5, -0.5,
+             0.5, -0.5,
+             0.0,  0.5,
+        ]
+        
+        # Load vertex data into the VBO
+        glBufferData(GL_ARRAY_BUFFER, len(vertexData)*4, (ctypes.c_float * len(vertexData))(*vertexData), GL_STATIC_DRAW)
+    
+        return vbo
+
+    def drawVboTriangle(self):
+        glBindBuffer(GL_ARRAY_BUFFER, self.vbo)
+        
+        # Specify the layout of the vertex data
+        glEnableVertexAttribArray(0)
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * 4, ctypes.c_void_p(0))
+
         # Draw the triangle
         glDrawArrays(GL_TRIANGLES, 0, 3)
-    
-        # Disable vertex array
-        glDisableClientState(GL_VERTEX_ARRAY)   
-
 
     #Debugging tools, such as drawing the coordinates
     def setTextColor(self, color):

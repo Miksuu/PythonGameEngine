@@ -17,15 +17,12 @@ camera = Camera()
 
 projectileCount = 0
 
-# name, x, y positions as Vector2, color, speed, camera ref
-player = GameObject("Player", Vector2(0.1, 0.2), (1.0, 0.5, 0.0), 0.1, camera)
-
-gameObjectManager.addObject(player)
-
 draggingMouse = False
 
 def main():
     print("Starting...")
+    global player    
+
     windowManagement.setupWindow()
     
     glutKeyboardFunc(keyboard)
@@ -34,11 +31,12 @@ def main():
     glutMouseFunc(mouseButton)
     glutMotionFunc(mouseDrag)
 
-    # Initialize VBO
-    vbo = initializeVbo()
-
     # Initialize Shaders
     shaderProgram = initializeShaders()
+    
+    # name, x, y positions as Vector2, color, speed, camera ref
+    player = GameObject("Player", Vector2(0.1, 0.2), (1.0, 0.5, 0.0), 0.1, camera)
+    gameObjectManager.addObject(player)
 
     # Main game loop
     while True:
@@ -47,16 +45,6 @@ def main():
         # Use the shader program
         glUseProgram(shaderProgram)
 
-        # Bind the VBO
-        glBindBuffer(GL_ARRAY_BUFFER, vbo)
-
-        # Specify the layout of the vertex data
-        glEnableVertexAttribArray(0)
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * 4, ctypes.c_void_p(0))
-
-        # Draw the triangle
-        glDrawArrays(GL_TRIANGLES, 0, 3)
-        
         gameObjectManager.handleGameLoop()
 
         # Run the GLUT mainloop
@@ -73,7 +61,7 @@ def mouseButton(button, state, x, y):
         # Dragging mouse, camera control
         if button == GLUT_RIGHT_BUTTON:
             draggingMouse = True
-            ##recenterCamera()  # Re-center when the button is released
+            #recenterCamera() # Re-center when the button is released
 
         # Shooting mechanics implementation
         if button == GLUT_LEFT_BUTTON:
@@ -99,26 +87,6 @@ def recenterCamera():
 def keyboard(key, x, y):
     player.inputManager.move(key)
 
-# Initialize a VBO
-def initializeVbo():
-    # Create a new VBO
-    vbo = glGenBuffers(1)
-    # Bind the VBO
-    glBindBuffer(GL_ARRAY_BUFFER, vbo)
-    
-    # Vertex data (x, y, coordinates)
-    vertexData = [
-        -0.5, -0.5,
-         0.5, -0.5,
-         0.0,  0.5,
-    ]
-    
-    # Load vertex data into the VBO
-    glBufferData(GL_ARRAY_BUFFER, len(vertexData)*4, (ctypes.c_float * len(vertexData))(*vertexData), GL_STATIC_DRAW)
-    
-    return vbo
-
-# Initialize shaders
 def initializeShaders():
     # Vertex Shader
     vertexShaderSource = """
@@ -170,5 +138,6 @@ def initializeShaders():
         return None
     
     return shaderProgram
+
 
 main()
