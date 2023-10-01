@@ -145,5 +145,4 @@ def initializeShaders():
     
     return shaderProgram
 
-
 main()
