@@ -76,9 +76,9 @@ def mouseButton(button, state, x, y):
             # x, y positions as Vector2, color, speed, camera ref, velocity
             projectilePosition = Vector2(player.position.x, player.position.y)
             projectileColor = (0.2, 1.0, 0.2);
-            projectileVelocity = Vector2(0.05, 0.05)  # Add a velocity vector for the projectile
+            
 
-            projectile = GameObject("Bullet_" + str(projectileCount), vertexDataForProjectile, projectilePosition, projectileColor, 0.1, projectileVelocity)
+            projectile = GameObject("Bullet_" + str(projectileCount), vertexDataForProjectile, projectilePosition, projectileColor, 0.1)
             gameObjectManager.addObject(projectile)
     else:
         draggingMouse = False

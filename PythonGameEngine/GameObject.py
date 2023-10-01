@@ -13,15 +13,20 @@ class GameObject:
         self.position = Vector2(position.x, position.y)
         self.color = color
         self.speed = speed
+        self.velocity = Vector2(0,0)
 
-        # Add input to the player only
+        # Refactor to proper inhertiance
         if self.name != "Player":
-            self.renderer = Renderer(vertices, color)
+            self.renderer = Renderer(vertices, color, None)
             pass
         else:
             self.camera = Camera()
             self.inputManager = InputManager(self, self.camera)
             self.renderer = Renderer(vertices, color, self.camera)
+        
+        # Refactor to proper inhertiance
+        if "Bullet" in self.name:
+            self.velocity = Vector2(0.05, 0.05)  # Add a velocity vector for the projectile
         
         self.vertices = vertices
         
