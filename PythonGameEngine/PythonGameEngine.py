@@ -44,8 +44,6 @@ def main():
     player = GameObject("Player", vertexData, Vector2(0.1, 0.2), (1.0, 0.5, 0.7, 0.5), 0.1, camera)
     gameObjectManager.addObject(player)
 
-
-
     # Main game loop
     while True:
         print("Starting MAINLOOP")        
