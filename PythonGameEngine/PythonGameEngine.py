@@ -37,19 +37,18 @@ def main():
     glutMouseFunc(mouseButton)
     glutMotionFunc(mouseDrag)
 
-    # Initialize Shaders
-    shaderProgram = initializeShaders()
+    # Initialize Shaders, moved to the gameobject itself
+    #shaderProgram = initializeShaders()
     
     # name, x, y positions as Vector2, color, speed, camera ref
-    player = GameObject("Player", vertexData, Vector2(0.1, 0.2), (1.0, 0.5, 0.0), 0.1, camera)
+    player = GameObject("Player", vertexData, Vector2(0.1, 0.2), (1.0, 0.5, 0.7, 0.5), 0.1, camera)
     gameObjectManager.addObject(player)
+
+
 
     # Main game loop
     while True:
-        print("Starting MAINLOOP")
-
-        # Use the shader program
-        glUseProgram(shaderProgram)
+        print("Starting MAINLOOP")        
 
         gameObjectManager.handleGameLoop()
 
@@ -92,57 +91,5 @@ def recenterCamera():
 
 def keyboard(key, x, y):
     player.inputManager.move(key)
-
-def initializeShaders():
-    # Vertex Shader
-    vertexShaderSource = """
-    #version 330 core
-    layout (location = 0) in vec3 aPos;
-    void main()
-    {
-        gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
-    }
-    """
-    
-    vertexShader = glCreateShader(GL_VERTEX_SHADER)
-    glShaderSource(vertexShader, vertexShaderSource)
-    glCompileShader(vertexShader)
-    
-    # Check for shader compile errors
-    if not glGetShaderiv(vertexShader, GL_COMPILE_STATUS):
-        print("ERROR: SHADER VERTEX COMPILATION_FAILED")
-        return None
-    
-    # Fragment Shader
-    fragmentShaderSource = """
-    #version 330 core
-    out vec4 FragColor;
-    void main()
-    {
-        FragColor = vec4(0.5f, 0.5f, 0.2f, 1.0f);
-    }
-    """
-    
-    fragment_shader = glCreateShader(GL_FRAGMENT_SHADER)
-    glShaderSource(fragment_shader, fragmentShaderSource)
-    glCompileShader(fragment_shader)
-    
-    # Check for shader compile errors
-    if not glGetShaderiv(fragment_shader, GL_COMPILE_STATUS):
-        print("ERROR: SHADER FRAGMENT COMPILATION_FAILED")
-        return None
-    
-    # Link shaders
-    shaderProgram = glCreateProgram()
-    glAttachShader(shaderProgram, vertexShader)
-    glAttachShader(shaderProgram, fragment_shader)
-    glLinkProgram(shaderProgram)
-    
-    # Check for linking errors
-    if not glGetProgramiv(shaderProgram, GL_LINK_STATUS):
-        print("ERROR: SHADER PROGRAMLINKING_FAILED")
-        return None
-    
-    return shaderProgram
 
 main()
