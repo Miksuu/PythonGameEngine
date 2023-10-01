@@ -5,11 +5,11 @@ from OpenGL.GLUT import*
 from Camera import Camera
 
 class Renderer:
-    def __init__(self, color, camera):
+    def __init__(self, vertices, color, camera):
         self.camera = camera
         self.color = color
         
-        self.vbo = self.initializeVboTriangle()
+        self.vbo = self.initializeVboData(vertices)
 
     def drawRectangle(self, position):
         # Apply camera transformations
@@ -19,10 +19,10 @@ class Renderer:
         glColor3f(self.color[0], self.color[1], self.color[2])
         
         # Define the vertex array
-        vertices = [-0.1 + position.x, -0.2 + position.y,
-                     0.1 + position.x, -0.2 + position.y,
-                     0.1 + position.x,  0.2 + position.y,
-                    -0.1 + position.x,  0.2 + position.y]
+        # vertices = [-0.1 + position.x, -0.2 + position.y,
+        #              0.1 + position.x, -0.2 + position.y,
+        #              0.1 + position.x,  0.2 + position.y,
+        #             -0.1 + position.x,  0.2 + position.y]
         
         indices = [0, 1, 2, 3]
         
@@ -34,7 +34,7 @@ class Renderer:
         # Disable vertex array
         glDisableClientState(GL_VERTEX_ARRAY)
         
-    def initializeVboTriangle(self):
+    def initializeVboData(self, vertices):
         # Set the color
         #glColor3f(self.color[0], self.color[1], self.color[2])        
 
@@ -57,16 +57,9 @@ class Renderer:
         vbo = glGenBuffers(1)
         # Bind the VBO
         glBindBuffer(GL_ARRAY_BUFFER, vbo)
-    
-        # Vertex data (x, y coordinates)
-        vertexData = [
-            -0.5, -0.5,
-             0.5, -0.5,
-             0.0,  0.5,
-        ]
         
         # Load vertex data into the VBO
-        glBufferData(GL_ARRAY_BUFFER, len(vertexData)*4, (ctypes.c_float * len(vertexData))(*vertexData), GL_STATIC_DRAW)
+        glBufferData(GL_ARRAY_BUFFER, len(vertices)*4, (ctypes.c_float * len(vertices))(*vertices), GL_STATIC_DRAW)
     
         return vbo
 

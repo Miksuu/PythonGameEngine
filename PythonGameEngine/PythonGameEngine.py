@@ -5,7 +5,7 @@ from OpenGL.GLUT import*
 # Engine components
 from Camera import Camera
 from GameObject import GameObject
-from TriangleGameObject import TriangleGameObject
+# from TriangleGameObject import TriangleGameObject
 from GameObjectManager import GameObjectManager
 from Vector2 import Vector2
 from WindowManagement import WindowManagement
@@ -18,6 +18,13 @@ camera = Camera()
 projectileCount = 0
 
 draggingMouse = False
+
+# Temp, add these to some other class
+# Triangle Vertex data (x, y coordinates)
+triangleVertexData = [
+    0.0, 0.01,
+    -0.01, -0.01,
+    0.01, -0.01]
 
 def main():
     print("Starting...")
@@ -35,7 +42,7 @@ def main():
     shaderProgram = initializeShaders()
     
     # name, x, y positions as Vector2, color, speed, camera ref
-    player = GameObject("Player", Vector2(0.1, 0.2), (1.0, 0.5, 0.0), 0.1, camera)
+    player = GameObject("Player", triangleVertexData, Vector2(0.1, 0.2), (1.0, 0.5, 0.0), 0.1, camera)
     gameObjectManager.addObject(player)
 
     # Main game loop
@@ -70,7 +77,7 @@ def mouseButton(button, state, x, y):
             projectileColor = (0.2, 1.0, 0.2);
             projectileVelocity = Vector2(0.05, 0.05)  # Add a velocity vector for the projectile
 
-            projectile = TriangleGameObject("Bullet_" + str(projectileCount), projectilePosition, projectileColor, 0.1, projectileVelocity)
+            projectile = GameObject("Bullet_" + str(projectileCount), triangleVertexData, projectilePosition, projectileColor, 0.1, projectileVelocity)
             gameObjectManager.addObject(projectile)
     else:
         draggingMouse = False

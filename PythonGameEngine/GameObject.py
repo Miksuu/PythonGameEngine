@@ -6,7 +6,7 @@ from Vector2 import Vector2
 from InputManager import InputManager
 
 class GameObject:
-    def __init__(self, name, position, color, speed, camera):
+    def __init__(self, name, vertices, position, color, speed, camera):
         self.name = name
         self.position = Vector2(position.x, position.y)
         self.color = color
@@ -18,10 +18,12 @@ class GameObject:
         else:
             self.inputManager = InputManager(self, camera)
 
-        self.renderer = Renderer(color,  camera)
+        self.renderer = Renderer(vertices, color, camera)
+        self.vertices = vertices
         
     def handleGameLoop(self):
-        self.renderer.drawRectangle(self.position)
+        #self.renderer.drawVboTriangle(self.position)
+        self.renderer.drawVboTriangle()
         # Draw coordinates on top of the object, formatted to 2 decimal places
         infoText = f"{self.name}({self.position.x:.2f}, {self.position.y:.2f})"
         self.renderer.setTextColor((1.0, 1.0, 1.0))  # Set text color to white
