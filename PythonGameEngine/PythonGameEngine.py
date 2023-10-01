@@ -140,7 +140,7 @@ def initializeShaders():
     
     # Check for linking errors
     if not glGetProgramiv(shaderProgram, GL_LINK_STATUS):
-        print("ERROR SHADER PROGRAMLINKING_FAILED")
+        print("ERROR: SHADER PROGRAMLINKING_FAILED")
         return None
     
     return shaderProgram
