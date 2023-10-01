@@ -20,10 +20,17 @@ draggingMouse = False
 
 # Temp, add these to some other class
 # Vertex data (x, y coordinates)
-vertexData = [-0.1, -0.2,
+vertexDataForPlayer = [
+              -0.1, -0.2,
                0.1, -0.2,
                0.1,  0.2,
               -0.1,  0.2]
+
+vertexDataForProjectile = [
+              -0.01, -0.01,
+               0.01, -0.01,
+               0.01,  0.01,
+              -0.01,  0.01]
 
 def main():
     print("Starting...")
@@ -41,7 +48,7 @@ def main():
     #shaderProgram = initializeShaders()
     
     # name, x, y positions as Vector2, color, speed, camera ref
-    player = GameObject("Player", vertexData, Vector2(0.1, 0.2), (1.0, 0.5, 0.7), 0.1, camera)
+    player = GameObject("Player", vertexDataForPlayer, Vector2(0.1, 0.2), (1.0, 0.5, 0.7), 0.1, camera)
     gameObjectManager.addObject(player)
 
     # Main game loop
@@ -73,7 +80,7 @@ def mouseButton(button, state, x, y):
             projectileColor = (0.2, 1.0, 0.2);
             projectileVelocity = Vector2(0.05, 0.05)  # Add a velocity vector for the projectile
 
-            projectile = GameObject("Bullet_" + str(projectileCount), vertexData, projectilePosition, projectileColor, 0.1, projectileVelocity)
+            projectile = GameObject("Bullet_" + str(projectileCount), vertexDataForProjectile, projectilePosition, projectileColor, 0.1, projectileVelocity)
             gameObjectManager.addObject(projectile)
     else:
         draggingMouse = False
