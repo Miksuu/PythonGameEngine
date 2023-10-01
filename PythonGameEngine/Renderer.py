@@ -28,7 +28,7 @@ class Renderer:
         
         # Enable vertex array and specify its data
         glEnableClientState(GL_VERTEX_ARRAY)
-        glVertexPointer(2, GL_FLOAT, 0, vertices)
+        glVertexPointer(2, GL_FLOAT, 0, self.vbo)
         glDrawElements(GL_QUADS, len(indices), GL_UNSIGNED_BYTE, indices)
         
         # Disable vertex array
