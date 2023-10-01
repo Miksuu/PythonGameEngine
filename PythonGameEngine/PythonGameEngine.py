@@ -5,27 +5,30 @@ from OpenGL.GLUT import*
 # Engine components
 from Camera import Camera
 from GameObject import GameObject
-from TriangleGameObject import TriangleGameObject
 from GameObjectManager import GameObjectManager
 from Vector2 import Vector2
 from WindowManagement import WindowManagement
 
 gameObjectManager = GameObjectManager()
-windowManagement = WindowManagement(gameObjectManager)
+windowManagement = WindowManagement(gameObjectManager, 1200, 1200)
 
 camera = Camera()
 
 projectileCount = 0
 
-# name, x, y positions as Vector2, color, speed, camera ref
-player = GameObject("Player", Vector2(0.1, 0.2), (1.0, 0.5, 0.0), 0.1, camera)
-
-gameObjectManager.addObject(player)
-
 draggingMouse = False
+
+# Temp, add these to some other class
+# Vertex data (x, y coordinates)
+vertexData = [-0.1, -0.2,
+               0.1, -0.2,
+               0.1,  0.2,
+              -0.1,  0.2]
 
 def main():
     print("Starting...")
+    global player    
+
     windowManagement.setupWindow()
     
     glutKeyboardFunc(keyboard)
@@ -33,8 +36,25 @@ def main():
     # Lines to handle mouse movement
     glutMouseFunc(mouseButton)
     glutMotionFunc(mouseDrag)
+
+    # Initialize Shaders, moved to the gameobject itself
+    #shaderProgram = initializeShaders()
     
-    glutMainLoop()
+    # name, x, y positions as Vector2, color, speed, camera ref
+    player = GameObject("Player", vertexData, Vector2(0.1, 0.2), (1.0, 0.5, 0.7), 0.1, camera)
+    gameObjectManager.addObject(player)
+
+    # Main game loop
+    while True:
+        print("Starting MAINLOOP")        
+
+        gameObjectManager.handleGameLoop()
+
+        # Run the GLUT mainloop
+        glutMainLoop()    
+
+        print("Ending MAINLOOP")
+
     print("Ending...")
 
 def mouseButton(button, state, x, y):
@@ -44,7 +64,7 @@ def mouseButton(button, state, x, y):
         # Dragging mouse, camera control
         if button == GLUT_RIGHT_BUTTON:
             draggingMouse = True
-            ##recenterCamera()  # Re-center when the button is released
+            #recenterCamera() # Re-center when the button is released
 
         # Shooting mechanics implementation
         if button == GLUT_LEFT_BUTTON:
@@ -53,7 +73,7 @@ def mouseButton(button, state, x, y):
             projectileColor = (0.2, 1.0, 0.2);
             projectileVelocity = Vector2(0.05, 0.05)  # Add a velocity vector for the projectile
 
-            projectile = TriangleGameObject("Bullet_" + str(projectileCount), projectilePosition, projectileColor, 0.1, projectileVelocity)
+            projectile = GameObject("Bullet_" + str(projectileCount), vertexData, projectilePosition, projectileColor, 0.1, projectileVelocity)
             gameObjectManager.addObject(projectile)
     else:
         draggingMouse = False
