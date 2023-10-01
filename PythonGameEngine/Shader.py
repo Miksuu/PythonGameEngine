@@ -1,9 +1,11 @@
 from OpenGL.GL import *
 
+import ctypes
+
 class Shader:
     def __init__(self, color):
-        self.shader = self.initialize()
         self.color = color
+        self.shader = self.initialize()
 
     def initialize(self):
         # Vertex Shader
@@ -25,14 +27,13 @@ class Shader:
             print("ERROR: SHADER VERTEX COMPILATION_FAILED")
             return None
     
-        # Fragment Shader
-        fragmentShaderSource = """
+        fragmentShaderSource = f"""
         #version 330 core
         out vec4 FragColor;
         void main()
-        {
-            FragColor = vec4(0.9f, 0.2f, 0.2f, 1f);
-        }
+        {{
+            FragColor = vec4({self.color[0]}f, {self.color[1]}f, {self.color[2]}f, 1f);
+        }}
         """
     
         fragment_shader = glCreateShader(GL_FRAGMENT_SHADER)
@@ -59,5 +60,6 @@ class Shader:
 
     def setShaderUniforms(self):
         colorLocation = glGetUniformLocation(self.shader, "objectColor")
-        glUseProgram(self.shader) # Needed to call this before
-        glUniform3fv(colorLocation, 1, self.color)
+        glUseProgram(self.shader)
+        colorArray = (ctypes.c_float * len(self.color))(*self.color)
+        glUniform3fv(colorLocation, 1, colorArray)

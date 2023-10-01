@@ -41,7 +41,7 @@ def main():
     #shaderProgram = initializeShaders()
     
     # name, x, y positions as Vector2, color, speed, camera ref
-    player = GameObject("Player", vertexData, Vector2(0.1, 0.2), (1.0, 0.5, 0.7, 0.5), 0.1, camera)
+    player = GameObject("Player", vertexData, Vector2(0.1, 0.2), (1.0, 0.5, 0.7), 0.1, camera)
     gameObjectManager.addObject(player)
 
     # Main game loop
