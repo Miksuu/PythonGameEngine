@@ -4,10 +4,13 @@ from OpenGL.GLUT import*
 
 # Engine components
 from Camera import Camera
-from GameObject import GameObject
 from GameObjectManager import GameObjectManager
 from Vector2 import Vector2
 from WindowManagement import WindowManagement
+# GameObjects
+from GameObject import GameObject
+from Player import Player
+from Bullet import Bullet
 
 gameObjectManager = GameObjectManager()
 windowManagement = WindowManagement(gameObjectManager, 1200, 1200)
@@ -43,7 +46,7 @@ def main():
     glutMotionFunc(mouseDrag)
 
     # name, x, y positions as Vector2, color, speed, camera ref
-    player = GameObject("Player", vertexDataForPlayer, Vector2(0.1, 0.2), (1.0, 0.5, 0.7), 0.1)
+    player = Player("Player", vertexDataForPlayer, Vector2(0.1, 0.2), (1.0, 0.5, 0.7), 0.1)
     gameObjectManager.addObject(player)
 
     # Main game loop
@@ -74,7 +77,7 @@ def mouseButton(button, state, x, y):
             # x, y positions as Vector2, color, speed, camera ref, velocity
             projectilePosition = Vector2(player.position.x, player.position.y)
             projectileColor = (0.2, 1.0, 0.2);
-            projectile = GameObject("Bullet_" + str(projectileCount), vertexDataForProjectile, projectilePosition, projectileColor, 0.1)
+            projectile = Bullet("Bullet_" + str(projectileCount), vertexDataForProjectile, projectilePosition, projectileColor, 0.1)
             gameObjectManager.addObject(projectile)
             projectileCount += 1
     else:

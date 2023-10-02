@@ -26,6 +26,8 @@
     <Compile Include="GameObject.py" />
     <Compile Include="GameObjectManager.py" />
     <Compile Include="InputManager.py" />
+    <Compile Include="Bullet.py" />
+    <Compile Include="Player.py" />
     <Compile Include="PythonGameEngine.py" />
     <Compile Include="Renderer.py" />
     <Compile Include="TriangleGameObject.py" />
