@@ -17,6 +17,9 @@ class GameObject:
         self.vertices = vertices
                 
     def handleGameLoop(self):
+        if self.velocity:
+            self.position = self.position + self.velocity * self.speed        
+
         self.renderer.shader.setShaderUniforms()        
         self.renderer.updateVertexData(self.position)
         self.renderer.drawVboRectangle()
