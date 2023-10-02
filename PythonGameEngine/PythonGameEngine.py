@@ -42,9 +42,6 @@ def main():
     glutMouseFunc(mouseButton)
     glutMotionFunc(mouseDrag)
 
-    # Initialize Shaders, moved to the gameobject itself
-    #shaderProgram = initializeShaders()
-    
     # name, x, y positions as Vector2, color, speed, camera ref
     player = GameObject("Player", vertexDataForPlayer, Vector2(0.1, 0.2), (1.0, 0.5, 0.7), 0.1)
     gameObjectManager.addObject(player)
