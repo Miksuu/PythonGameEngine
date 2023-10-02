@@ -36,19 +36,19 @@ class Shader:
         }}
         """
     
-        fragment_shader = glCreateShader(GL_FRAGMENT_SHADER)
-        glShaderSource(fragment_shader, fragmentShaderSource)
-        glCompileShader(fragment_shader)
+        fragmentShader = glCreateShader(GL_FRAGMENT_SHADER)
+        glShaderSource(fragmentShader, fragmentShaderSource)
+        glCompileShader(fragmentShader)
     
         # Check for shader compile errors
-        if not glGetShaderiv(fragment_shader, GL_COMPILE_STATUS):
+        if not glGetShaderiv(fragmentShader, GL_COMPILE_STATUS):
             print("ERROR: SHADER FRAGMENT COMPILATION_FAILED")
             return None
     
         # Link shaders
         shaderProgram = glCreateProgram()
         glAttachShader(shaderProgram, vertexShader)
-        glAttachShader(shaderProgram, fragment_shader)
+        glAttachShader(shaderProgram, fragmentShader)
         glLinkProgram(shaderProgram)
     
         # Check for linking errors
