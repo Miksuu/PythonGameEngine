@@ -48,18 +48,11 @@ def main():
     # name, x, y positions as Vector2, color, speed, camera ref
     player = Player("Player", vertexDataForPlayer, Vector2(0.1, 0.2), (1.0, 0.5, 0.7), 0.1)
     gameObjectManager.addObject(player)
-
-    # Main game loop
-    while True:
-        print("Starting MAINLOOP")        
-
-        gameObjectManager.handleGameLoop()
-
-        # Run the GLUT mainloop
-        glutMainLoop()    
-
-        print("Ending MAINLOOP")
-
+    
+    # Run the GLUT mainloop
+    print("Starting GLUT Main Loop")
+    glutMainLoop()
+    
     print("Ending...")
 
 def mouseButton(button, state, x, y):
