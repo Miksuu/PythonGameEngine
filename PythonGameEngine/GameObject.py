@@ -28,6 +28,6 @@ class GameObject:
 
         # Draw coordinates on top of the object, formatted to 2 decimal places
         infoText = f"{self.name}({self.position.x:.2f}, {self.position.y:.2f})"
-        self.renderer.setTextColor((1.0, 1.0, 1.0))  # Set text color to white
+        self.renderer.setTextColor()  # Set text color to white
         self.renderer.drawText(self.name, self.position, infoText)
         self.renderer.resetColor()  # Reset to original color

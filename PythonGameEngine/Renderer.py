@@ -57,14 +57,19 @@ class Renderer:
         glBufferSubData(GL_ARRAY_BUFFER, 0, len(self.vertices) * 4, (ctypes.c_float * len(self.vertices))(*self.vertices))
             
     #Debugging tools, such as drawing the coordinates
-    def setTextColor(self, color):
+    def setTextColor(self):
         glColor3f(self.debugColor[0], self.debugColor[1], self.debugColor[2])
 
     def resetColor(self):
         glColor3f(self.debugColor[0], self.debugColor[1], self.debugColor[2])
 
-    def drawText(self, name , position, text):
-        glRasterPos2f(position.x, position.y)
-        for char in text:
-            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, ord(char))
-    
+    def drawText(self, name, position, text):
+        #print(position.x, " | ", position.y)
+        # Check if the object's position is within the window
+        # Refactor this later to move with the camera
+        if position.x >= -1 and position.x <= 1 and position.y >= -1 and position.y <= 1:
+            glRasterPos2f(position.x, position.y)
+            for char in text:
+                glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, ord(char))
+        else:
+            pass
