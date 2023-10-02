@@ -46,17 +46,17 @@ class Shader:
             return None
     
         # Link shaders
-        shaderProgram = glCreateProgram()
-        glAttachShader(shaderProgram, vertexShader)
-        glAttachShader(shaderProgram, fragmentShader)
-        glLinkProgram(shaderProgram)
+        shader = glCreateProgram()
+        glAttachShader(shader, vertexShader)
+        glAttachShader(shader, fragmentShader)
+        glLinkProgram(shader)
     
         # Check for linking errors
-        if not glGetProgramiv(shaderProgram, GL_LINK_STATUS):
+        if not glGetProgramiv(shader, GL_LINK_STATUS):
             print("ERROR: SHADER PROGRAMLINKING_FAILED")
             return None
     
-        return shaderProgram
+        return shader
 
     def setShaderUniforms(self):
         colorLocation = glGetUniformLocation(self.shader, "objectColor")
