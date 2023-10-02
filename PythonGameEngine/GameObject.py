@@ -15,7 +15,7 @@ class GameObject:
         self.speed = speed
         self.velocity = Vector2(0,0)
 
-        # Refactor to proper inhertiance
+        # Refactor to proper inheritance
         if self.name != "Player":
             self.renderer = Renderer(vertices, color, None)
             pass
@@ -24,7 +24,7 @@ class GameObject:
             self.inputManager = InputManager(self, self.camera)
             self.renderer = Renderer(vertices, color, self.camera)
         
-        # Refactor to proper inhertiance
+        # Refactor to proper inheritance
         if "Bullet" in self.name:
             self.velocity = Vector2(0.05, 0.05)  # Add a velocity vector for the projectile
         
