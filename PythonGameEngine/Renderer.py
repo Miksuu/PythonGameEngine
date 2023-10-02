@@ -57,7 +57,7 @@ class Renderer:
         glBufferSubData(GL_ARRAY_BUFFER, 0, len(self.vertices) * 4, (ctypes.c_float * len(self.vertices))(*self.vertices))
             
     #Debugging tools, such as drawing the coordinates
-    def setTextColor(self, color):
+    def setTextColor(self):
         glColor3f(self.debugColor[0], self.debugColor[1], self.debugColor[2])
 
     def resetColor(self):
