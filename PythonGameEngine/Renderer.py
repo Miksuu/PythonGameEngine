@@ -8,13 +8,15 @@ from FileManager import FileManager
 
 class Renderer:
     def __init__(self, color, camera, gameObjectName):
-        assetNameToSearchFor = "Assets/" + gameObjectName + ".py"
         
+        # Search the asset and assign it to the class
+        assetNameToSearchFor = "Assets/" + gameObjectName + ".py"
         self.playerAsset = FileManager(assetNameToSearchFor)
         self.playerAsset.read_importlib()
+        
+        # Assign vbo array from the file
         self.vboArray = self.playerAsset.module.vbo
-
-        self.originalVertices = self.vboArray.copy()
+        self.originalVertices = self.vboArray.copy()        
         
         if camera != None:
             self.camera = camera
