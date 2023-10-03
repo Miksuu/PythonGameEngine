@@ -15,13 +15,13 @@ class Camera:
         #print(f"Camera position before update: {self.position.x} | {self.position.y}")
     
         # Calculate the scaled mouse coordinates
-        scaling_factor = 0.1
-        scaled_mouseX = mouseX * scaling_factor
-        scaled_mouseY = mouseY * scaling_factor
+        scalingFactor = 0.1
+        scaledMouseX = mouseX * scalingFactor
+        scaledMouseY = mouseY * scalingFactor
     
         # Calculate new camera position based on GameObject's position and scaled mouse coordinates
-        new_camera_x = gameObject.position.x + scaled_mouseX * 0.01  # added scaling for mouse influence
-        new_camera_y = gameObject.position.y + scaled_mouseY * 0.01
+        newCameraX = gameObject.position.x + scaledMouseX * 0.01  # added scaling for mouse influence
+        newCameraY = gameObject.position.y + scaledMouseY * 0.01
     
         # Calculate the offset based on the mouse movement
         offsetX = (mouseX - 600) * 0.001  # Assuming 1200x1200 window, refactor this later
