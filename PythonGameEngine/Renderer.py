@@ -7,14 +7,12 @@ from Shader import Shader
 from FileManager import FileManager
 
 class Renderer:
-    def __init__(self, assetData, color, camera):    
-
-        playerAsset = FileManager("Assets/PlayerCharacter.py")
-        playerAsset.read_importlib()
-        self.vboArray = playerAsset.module.vbo
+    def __init__(self, color, camera):    
+        self.playerAsset = FileManager("Assets/PlayerCharacter.py")
+        self.playerAsset.read_importlib()
+        self.vboArray = self.playerAsset.module.vbo
 
         self.originalVertices = self.vboArray.copy()
-        self.assetData = assetData
         
         if camera != None:
             self.camera = camera
@@ -24,12 +22,12 @@ class Renderer:
         self.shader = Shader(color);
                 
 
-        self.vbo = self.initializeVboData(self.vboArray)
+        self.vbo = self.initializeVboData()
         
-    def initializeVboData(self, assetData):
+    def initializeVboData(self):
         vbo = glGenBuffers(1)
         glBindBuffer(GL_ARRAY_BUFFER, vbo)
-        glBufferData(GL_ARRAY_BUFFER, len(assetData) * 4, (ctypes.c_float * len(assetData))(*assetData), GL_STATIC_DRAW)
+        glBufferData(GL_ARRAY_BUFFER, len(self.vboArray) * 4, (ctypes.c_float * len(self.vboArray))(*self.vboArray), GL_STATIC_DRAW)
         return vbo
         
     def drawAsset(self):
@@ -47,7 +45,7 @@ class Renderer:
     def updateVertexData(self, position):
         #print(f"Updating with position: ({position.x}, {position.y})")        
 
-        self.assetData = self.originalVertices.copy()
+        self.vboArray = self.originalVertices.copy()
 
         # Make sure the length of vertexData is a multiple of 2 for x, y coordinates
         if len(self.vboArray) % 2 != 0:
@@ -55,15 +53,15 @@ class Renderer:
 
         # Update the vertex data based on the position
         for i in range(0, len(self.vboArray), 2):
-            self.assetData[i] += position.x
-            self.assetData[i+1] += position.y
+            self.vboArray[i] += position.x
+            self.vboArray[i+1] += position.y
 
         # Update the VBO
         self.updateVbo()
 
     def updateVbo(self):
         glBindBuffer(GL_ARRAY_BUFFER, self.vbo)
-        glBufferSubData(GL_ARRAY_BUFFER, 0, len(self.assetData) * 4, (ctypes.c_float * len(self.vboArray))(*self.vboArray))
+        glBufferSubData(GL_ARRAY_BUFFER, 0, len(self.vboArray) * 4, (ctypes.c_float * len(self.vboArray))(*self.vboArray))
             
     #Debugging tools, such as drawing the coordinates
     def setTextColor(self):

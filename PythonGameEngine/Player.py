@@ -7,12 +7,12 @@ from Camera import Camera
 from InputManager import InputManager
 
 class Player(GameObject):
-    def __init__(self, name, assetData, position, color, speed):
-        super().__init__(name, assetData, position, color, speed)
+    def __init__(self, name, position, color, speed):
+        super().__init__(name, position, color, speed)
         
         self.camera = Camera()
         self.inputManager = InputManager(self, self.camera)
-        self.renderer = Renderer(assetData, self.color, self.camera)
+        self.renderer = Renderer(self.color, self.camera)
 
     # Add Player-specific methods here (work in progress)
     def move(self):

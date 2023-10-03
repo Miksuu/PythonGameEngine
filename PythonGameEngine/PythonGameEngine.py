@@ -40,11 +40,9 @@ def main():
     # Lines to handle mouse movement
     glutMouseFunc(mouseButton)
     glutMotionFunc(mouseDrag)
-    
-    playerAsset = FileManager("Assets/PlayerCharacter.py")
 
     # name, x, y positions as Vector2, color, speed, camera ref
-    player = Player("Player", playerAsset, Vector2(0.1, 0.2), (1.0, 0.5, 0.7), 0.1)
+    player = Player("Player", Vector2(0.1, 0.2), (1.0, 0.5, 0.7), 0.1)
     gameObjectManager.addObject(player)
     
     # Run the GLUT mainloop
