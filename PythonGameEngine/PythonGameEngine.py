@@ -42,7 +42,7 @@ def main():
     glutMotionFunc(mouseDrag)
 
     # name, x, y positions as Vector2, color, speed, camera ref
-    player = Player("Player", Vector2(0.1, 0.2), (1.0, 0.5, 0.7), 0.1)
+    player = Player("PlayerCharacter", Vector2(0.1, 0.2), (1.0, 0.5, 0.7), 0.1)
     gameObjectManager.addObject(player)
     
     # Run the GLUT mainloop
@@ -66,7 +66,8 @@ def mouseButton(button, state, x, y):
             # x, y positions as Vector2, color, speed, camera ref, velocity
             projectilePosition = Vector2(player.position.x, player.position.y)
             projectileColor = (0.2, 1.0, 0.2);
-            projectile = Bullet("Bullet_" + str(projectileCount), projectilePosition, projectileColor, x, y)
+            #projectile = Bullet("Bullet" + str(projectileCount), projectilePosition, projectileColor, x, y)
+            projectile = Bullet("Bullet", projectilePosition, projectileColor, x, y)
             gameObjectManager.addObject(projectile)
             projectileCount += 1
     else:

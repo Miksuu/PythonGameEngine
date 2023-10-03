@@ -7,8 +7,10 @@ from Shader import Shader
 from FileManager import FileManager
 
 class Renderer:
-    def __init__(self, color, camera):    
-        self.playerAsset = FileManager("Assets/PlayerCharacter.py")
+    def __init__(self, color, camera, gameObjectName):
+        assetNameToSearchFor = "Assets/" + gameObjectName + ".py"
+        
+        self.playerAsset = FileManager(assetNameToSearchFor)
         self.playerAsset.read_importlib()
         self.vboArray = self.playerAsset.module.vbo
 

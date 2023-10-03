@@ -14,4 +14,4 @@ class Bullet(GameObject):
 
         self.velocity = Vector2(offsetX, -offsetY).normalize() * 0.01 ## temp way to set the speed
         #print("finalVelocity: " , self.velocity.x, " | ", self.velocity.y)
-        self.renderer = Renderer(color, None)
+        self.renderer = Renderer(color, None, name)

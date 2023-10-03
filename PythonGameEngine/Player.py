@@ -12,7 +12,7 @@ class Player(GameObject):
         
         self.camera = Camera()
         self.inputManager = InputManager(self, self.camera)
-        self.renderer = Renderer(self.color, self.camera)
+        self.renderer = Renderer(self.color, self.camera, name)
 
     # Add Player-specific methods here (work in progress)
     def move(self):
