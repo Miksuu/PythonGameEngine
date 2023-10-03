@@ -20,15 +20,6 @@ projectileCount = 0
 
 draggingMouse = False
 
-# Temp, add these to some other class
-# Vertex data (x, y coordinates)
-
-vertexDataForProjectile = [
-              -0.01, -0.01,
-               0.01, -0.01,
-               0.01,  0.01,
-              -0.01,  0.01]
-
 def main():
     print("Starting...")
     global player    
