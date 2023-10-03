@@ -4,11 +4,17 @@ from OpenGL.GLUT import*
 
 from Camera import Camera
 from Shader import Shader
+from FileManager import FileManager
 
 class Renderer:
-    def __init__(self, vertices, color, camera):
-        self.originalVertices = vertices.copy()
-        self.vertices = vertices
+    def __init__(self, assetData, color, camera):    
+
+        playerAsset = FileManager("Assets/PlayerCharacter.py")
+        playerAsset.read_importlib()
+        self.vboArray = playerAsset.module.vbo
+
+        self.originalVertices = self.vboArray.copy()
+        self.assetData = assetData
         
         if camera != None:
             self.camera = camera
@@ -16,20 +22,23 @@ class Renderer:
         self.debugColor = [1, 1, 0.5]
 
         self.shader = Shader(color);
+                
+
+        self.vbo = self.initializeVboData(self.vboArray)
         
-        self.vbo = self.initializeVboData(vertices)
-        
-    def initializeVboData(self, vertices):
+    def initializeVboData(self, assetData):
         vbo = glGenBuffers(1)
         glBindBuffer(GL_ARRAY_BUFFER, vbo)
-        glBufferData(GL_ARRAY_BUFFER, len(vertices) * 4, (ctypes.c_float * len(vertices))(*vertices), GL_STATIC_DRAW)
+        glBufferData(GL_ARRAY_BUFFER, len(assetData) * 4, (ctypes.c_float * len(assetData))(*assetData), GL_STATIC_DRAW)
         return vbo
         
-    def drawVboRectangle(self):
+    def drawAsset(self):
         glBindBuffer(GL_ARRAY_BUFFER, self.vbo)
 
         # Specify the layout of the vertex data
         glEnableVertexAttribArray(0)
+        
+        # Change to sizeof(7 * len(data_ ))
         glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * 4, ctypes.c_void_p(0))
 
         # Draw the rectangle using two triangles
@@ -38,23 +47,23 @@ class Renderer:
     def updateVertexData(self, position):
         #print(f"Updating with position: ({position.x}, {position.y})")        
 
-        self.vertices = self.originalVertices.copy()
+        self.assetData = self.originalVertices.copy()
 
         # Make sure the length of vertexData is a multiple of 2 for x, y coordinates
-        if len(self.vertices) % 2 != 0:
+        if len(self.vboArray) % 2 != 0:
             raise ValueError("Invalid length for vertexData")
 
         # Update the vertex data based on the position
-        for i in range(0, len(self.vertices), 2):
-            self.vertices[i] += position.x
-            self.vertices[i+1] += position.y
+        for i in range(0, len(self.vboArray), 2):
+            self.assetData[i] += position.x
+            self.assetData[i+1] += position.y
 
         # Update the VBO
         self.updateVbo()
 
     def updateVbo(self):
         glBindBuffer(GL_ARRAY_BUFFER, self.vbo)
-        glBufferSubData(GL_ARRAY_BUFFER, 0, len(self.vertices) * 4, (ctypes.c_float * len(self.vertices))(*self.vertices))
+        glBufferSubData(GL_ARRAY_BUFFER, 0, len(self.assetData) * 4, (ctypes.c_float * len(self.vboArray))(*self.vboArray))
             
     #Debugging tools, such as drawing the coordinates
     def setTextColor(self):

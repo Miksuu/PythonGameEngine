@@ -15,6 +15,7 @@ class GameObject:
         self.speed = speed
         self.velocity = Vector2(0, 0)
         self.vertices = vertices
+        #self.asset = "DefaultGameObject"
                 
     def handleGameLoop(self):
         if self.velocity:
@@ -22,7 +23,7 @@ class GameObject:
 
         self.renderer.shader.setShaderUniforms()        
         self.renderer.updateVertexData(self.position)
-        self.renderer.drawVboRectangle()
+        self.renderer.drawAsset()
 
         #print(f"Updated vertices: {self.vertices}")        
 

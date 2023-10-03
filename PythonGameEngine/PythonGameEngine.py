@@ -7,6 +7,7 @@ from Camera import Camera
 from GameObjectManager import GameObjectManager
 from Vector2 import Vector2
 from WindowManagement import WindowManagement
+from FileManager import FileManager
 # GameObjects
 from GameObject import GameObject
 from Player import Player
@@ -21,11 +22,6 @@ draggingMouse = False
 
 # Temp, add these to some other class
 # Vertex data (x, y coordinates)
-vertexDataForPlayer = [
-              -0.1, -0.2,
-               0.1, -0.2,
-               0.1,  0.2,
-              -0.1,  0.2]
 
 vertexDataForProjectile = [
               -0.01, -0.01,
@@ -44,9 +40,11 @@ def main():
     # Lines to handle mouse movement
     glutMouseFunc(mouseButton)
     glutMotionFunc(mouseDrag)
+    
+    playerAsset = FileManager("Assets/PlayerCharacter.py")
 
     # name, x, y positions as Vector2, color, speed, camera ref
-    player = Player("Player", vertexDataForPlayer, Vector2(0.1, 0.2), (1.0, 0.5, 0.7), 0.1)
+    player = Player("Player", playerAsset, Vector2(0.1, 0.2), (1.0, 0.5, 0.7), 0.1)
     gameObjectManager.addObject(player)
     
     # Run the GLUT mainloop
