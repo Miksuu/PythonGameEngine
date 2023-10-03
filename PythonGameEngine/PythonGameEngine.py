@@ -70,7 +70,7 @@ def mouseButton(button, state, x, y):
             # x, y positions as Vector2, color, speed, camera ref, velocity
             projectilePosition = Vector2(player.position.x, player.position.y)
             projectileColor = (0.2, 1.0, 0.2);
-            projectile = Bullet("Bullet_" + str(projectileCount), vertexDataForProjectile, projectilePosition, projectileColor, 0.1)
+            projectile = Bullet("Bullet_" + str(projectileCount), vertexDataForProjectile, projectilePosition, projectileColor, x, y)
             gameObjectManager.addObject(projectile)
             projectileCount += 1
     else:
