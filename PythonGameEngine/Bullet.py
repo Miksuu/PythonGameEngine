@@ -9,8 +9,9 @@ class Bullet(GameObject):
         offsetX = (mouseX - 600) * 0.001  # Assuming 1200x1200 window, refactor this later
         offsetY = (mouseY - 600) * 0.001
 
-        print(offsetX, " | ", offsetY)
+        print("POS: ", position.x, " | ", position.y)
+        print("calculated offset: ", offsetX, " | ", offsetY)
 
         self.velocity = Vector2(offsetX, -offsetY).normalize() * 0.01 ## temp way to set the speed
-        print("finalVelocity: " , self.velocity.x, " | ", self.velocity.y)
+        #print("finalVelocity: " , self.velocity.x, " | ", self.velocity.y)
         self.renderer = Renderer(vertices, color, None)
