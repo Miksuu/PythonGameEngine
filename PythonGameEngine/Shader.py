@@ -1,4 +1,5 @@
 from OpenGL.GL import *
+from FileManager import FileManager
 
 import ctypes
 
@@ -9,14 +10,17 @@ class Shader:
 
     def initialize(self):
         # Vertex Shader
-        vertexShaderSource = """
-        #version 330 core
-        layout (location = 0) in vec3 aPos;
-        void main()
-        {
-            gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
-        }
-        """        
+        vertexShaderSourceFile = FileManager("Assets/shader.vert")
+        vertexShaderSource = vertexShaderSourceFile.readAsString()
+
+        # vertexShaderSource = """
+        # #version 330 core
+        # layout (location = 0) in vec3 aPos;
+        # void main()
+        # {
+        #     gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
+        # }
+        # """        
 
         vertexShader = glCreateShader(GL_VERTEX_SHADER)
         glShaderSource(vertexShader, vertexShaderSource)

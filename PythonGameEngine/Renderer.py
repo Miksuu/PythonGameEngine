@@ -11,7 +11,7 @@ class Renderer:
         # Search the asset and assign it to the class
         assetNameToSearchFor = "Assets/" + gameObjectName + ".py"
         self.playerAsset = FileManager(assetNameToSearchFor)
-        self.playerAsset.read_importlib()
+        self.playerAsset.readImportlib()
         
         # Assign vbo array from the file
         self.vboArray = self.playerAsset.module.vbo
