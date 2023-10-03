@@ -16,17 +16,16 @@ class Renderer:
         
         # Assign vbo array from the file
         self.vboArray = self.playerAsset.module.vbo
-        self.originalVertices = self.vboArray.copy()        
+        self.originalVertices = self.vboArray.copy()
+        self.vbo = self.initializeVboData()
         
+        #self.shaderArray = self.playerAsset.module.shader
         if camera != None:
             self.camera = camera
         
         self.debugColor = [1, 1, 0.5]
 
-        self.shader = Shader(color);
-                
-
-        self.vbo = self.initializeVboData()
+        self.shader = Shader(color);               
         
     def initializeVboData(self):
         vbo = glGenBuffers(1)
