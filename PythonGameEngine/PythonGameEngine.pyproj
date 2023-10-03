@@ -30,7 +30,6 @@
     <Compile Include="Player.py" />
     <Compile Include="PythonGameEngine.py" />
     <Compile Include="Renderer.py" />
-    <Compile Include="TriangleGameObject.py" />
     <Compile Include="Vector2.py" />
     <Compile Include="WindowManagement.py" />
   </ItemGroup>
