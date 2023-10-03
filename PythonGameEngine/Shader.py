@@ -16,8 +16,8 @@ class Shader:
         {
             gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
         }
-        """
-    
+        """        
+
         vertexShader = glCreateShader(GL_VERTEX_SHADER)
         glShaderSource(vertexShader, vertexShaderSource)
         glCompileShader(vertexShader)

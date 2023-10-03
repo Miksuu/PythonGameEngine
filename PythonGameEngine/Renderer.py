@@ -8,7 +8,6 @@ from FileManager import FileManager
 
 class Renderer:
     def __init__(self, color, camera, gameObjectName):
-        
         # Search the asset and assign it to the class
         assetNameToSearchFor = "Assets/" + gameObjectName + ".py"
         self.playerAsset = FileManager(assetNameToSearchFor)
