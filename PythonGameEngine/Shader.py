@@ -16,16 +16,7 @@ class Shader:
 
         # Vertex Shader
         vertexShaderSourceFile = FileManager(pathToSearchFor + "shader.vert")
-        vertexShaderSource = vertexShaderSourceFile.readAsString()
-
-        # vertexShaderSource = """
-        # #version 330 core
-        # layout (location = 0) in vec3 aPos;
-        # void main()
-        # {
-        #     gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
-        # }
-        # """        
+        vertexShaderSource = vertexShaderSourceFile.readAsString()     
 
         vertexShader = glCreateShader(GL_VERTEX_SHADER)
         glShaderSource(vertexShader, vertexShaderSource)
@@ -36,15 +27,6 @@ class Shader:
             print("ERROR: SHADER VERTEX COMPILATION_FAILED")
             return None
     
-        # fragmentShaderSource = f"""
-        # #version 330 core
-        # out vec4 FragColor;
-        # void main()
-        # {{
-        #     FragColor = vec4({self.color[0]}f, {self.color[1]}f, {self.color[2]}f, 1f);
-        # }}
-        # """
-
         fragmentShaderSourceFile = FileManager(pathToSearchFor + "shader.frag")
         fragmentShaderSource = fragmentShaderSourceFile.readAsString()
         
