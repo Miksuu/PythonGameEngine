@@ -4,13 +4,18 @@ from FileManager import FileManager
 import ctypes
 
 class Shader:
-    def __init__(self, color):
+    def __init__(self, color, assetName):
         self.color = color
+        self.assetName = assetName
+        
         self.shader = self.initialize()
 
     def initialize(self):
+        
+        pathToSearchFor = "Assets/" + self.assetName + "/"
+
         # Vertex Shader
-        vertexShaderSourceFile = FileManager("Assets/shader.vert")
+        vertexShaderSourceFile = FileManager(pathToSearchFor + "shader.vert")
         vertexShaderSource = vertexShaderSourceFile.readAsString()
 
         # vertexShaderSource = """
@@ -40,7 +45,7 @@ class Shader:
         # }}
         # """
 
-        fragmentShaderSourceFile = FileManager("Assets/shader.frag")
+        fragmentShaderSourceFile = FileManager(pathToSearchFor + "shader.frag")
         fragmentShaderSource = fragmentShaderSourceFile.readAsString()
         
         fragmentShader = glCreateShader(GL_FRAGMENT_SHADER)

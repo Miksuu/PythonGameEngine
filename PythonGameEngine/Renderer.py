@@ -24,7 +24,7 @@ class Renderer:
         
         self.debugColor = [1, 1, 0.5]
 
-        self.shader = Shader(color);               
+        self.shader = Shader(color, gameObjectName);               
         
     def initializeVboData(self):
         vbo = glGenBuffers(1)
