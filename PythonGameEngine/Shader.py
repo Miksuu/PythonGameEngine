@@ -31,15 +31,18 @@ class Shader:
             print("ERROR: SHADER VERTEX COMPILATION_FAILED")
             return None
     
-        fragmentShaderSource = f"""
-        #version 330 core
-        out vec4 FragColor;
-        void main()
-        {{
-            FragColor = vec4({self.color[0]}f, {self.color[1]}f, {self.color[2]}f, 1f);
-        }}
-        """
-    
+        # fragmentShaderSource = f"""
+        # #version 330 core
+        # out vec4 FragColor;
+        # void main()
+        # {{
+        #     FragColor = vec4({self.color[0]}f, {self.color[1]}f, {self.color[2]}f, 1f);
+        # }}
+        # """
+
+        fragmentShaderSourceFile = FileManager("Assets/shader.frag")
+        fragmentShaderSource = fragmentShaderSourceFile.readAsString()
+        
         fragmentShader = glCreateShader(GL_FRAGMENT_SHADER)
         glShaderSource(fragmentShader, fragmentShaderSource)
         glCompileShader(fragmentShader)
