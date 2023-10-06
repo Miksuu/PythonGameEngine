@@ -14,18 +14,7 @@ class Shader:
         
         pathToSearchFor = "Assets/" + self.assetName + "/"
 
-        # Vertex Shader
-        vertexShaderSourceFile = FileManager(pathToSearchFor + "shader.vert")
-        vertexShaderSource = vertexShaderSourceFile.readAsString()     
-
-        vertexShader = glCreateShader(GL_VERTEX_SHADER)
-        glShaderSource(vertexShader, vertexShaderSource)
-        glCompileShader(vertexShader)
-    
-        # Check for shader compile errors
-        if not glGetShaderiv(vertexShader, GL_COMPILE_STATUS):
-            print("ERROR: SHADER VERTEX COMPILATION_FAILED")
-            return None
+        vertexShader = self.initVertexShader(pathToSearchFor)
     
         fragmentShaderSourceFile = FileManager(pathToSearchFor + "shader.frag")
         fragmentShaderSource = fragmentShaderSourceFile.readAsString()
@@ -51,6 +40,23 @@ class Shader:
             return None
     
         return shader
+
+    def initVertexShader(self, pathToSearchFor):
+        # Vertex Shader
+        vertexShaderSourceFile = FileManager(pathToSearchFor + "shader.vert")
+        vertexShaderSource = vertexShaderSourceFile.readAsString()     
+
+        vertexShader = glCreateShader(GL_VERTEX_SHADER)
+        glShaderSource(vertexShader, vertexShaderSource)
+        glCompileShader(vertexShader)
+    
+        # Check for shader compile errors
+        if not glGetShaderiv(vertexShader, GL_COMPILE_STATUS):
+            print("ERROR: SHADER VERTEX COMPILATION_FAILED")
+            return None    
+        
+        return vertexShader
+            
 
     def setShaderUniforms(self):
         colorLocation = glGetUniformLocation(self.shader, "objectColor")
