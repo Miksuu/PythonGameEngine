@@ -30,7 +30,7 @@ class Shader:
         return shader
 
     def initShader(self, pathToSearchFor, postFix, shaderType):
-        shaderSourceFile = FileManager(pathToSearchFor)
+        shaderSourceFile = FileManager(pathToSearchFor + postFix)
         shaderSource = shaderSourceFile.readAsString()     
 
         shader = glCreateShader(shaderType)
