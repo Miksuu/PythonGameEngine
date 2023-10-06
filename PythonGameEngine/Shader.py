@@ -38,7 +38,7 @@ class Shader:
         glCompileShader(shader)
     
         # Check for shader compile errors
-        if not glGetShaderiv(vertexShader, GL_COMPILE_STATUS):
+        if not glGetShaderiv(shader, GL_COMPILE_STATUS):
             print("ERROR: SHADER COMPILATION_FAILED ON: ", str(shaderType))
             return None    
         
