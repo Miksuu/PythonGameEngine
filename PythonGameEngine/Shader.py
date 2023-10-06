@@ -11,23 +11,11 @@ class Shader:
         self.shader = self.initialize()
 
     def initialize(self):
-        
         pathToSearchFor = "Assets/" + self.assetName + "/"
 
-        vertexShader = self.initVertexShader(pathToSearchFor)
-    
-        fragmentShaderSourceFile = FileManager(pathToSearchFor + "shader.frag")
-        fragmentShaderSource = fragmentShaderSourceFile.readAsString()
+        vertexShader = self.initShader(pathToSearchFor, "shader.vert", GL_VERTEX_SHADER)
+        fragmentShader = self.initShader(pathToSearchFor, "shader.frag", GL_FRAGMENT_SHADER)
         
-        fragmentShader = glCreateShader(GL_FRAGMENT_SHADER)
-        glShaderSource(fragmentShader, fragmentShaderSource)
-        glCompileShader(fragmentShader)
-    
-        # Check for shader compile errors
-        if not glGetShaderiv(fragmentShader, GL_COMPILE_STATUS):
-            print("ERROR: SHADER FRAGMENT COMPILATION_FAILED")
-            return None
-    
         # Link shaders
         shader = glCreateProgram()
         glAttachShader(shader, vertexShader)
@@ -41,23 +29,21 @@ class Shader:
     
         return shader
 
-    def initVertexShader(self, pathToSearchFor):
-        # Vertex Shader
-        vertexShaderSourceFile = FileManager(pathToSearchFor + "shader.vert")
-        vertexShaderSource = vertexShaderSourceFile.readAsString()     
+    def initShader(self, pathToSearchFor, postFix, shaderType):
+        shaderSourceFile = FileManager(pathToSearchFor)
+        shaderSource = shaderSourceFile.readAsString()     
 
-        vertexShader = glCreateShader(GL_VERTEX_SHADER)
-        glShaderSource(vertexShader, vertexShaderSource)
-        glCompileShader(vertexShader)
+        shader = glCreateShader(shaderType)
+        glShaderSource(shader, shaderSource)
+        glCompileShader(shader)
     
         # Check for shader compile errors
         if not glGetShaderiv(vertexShader, GL_COMPILE_STATUS):
-            print("ERROR: SHADER VERTEX COMPILATION_FAILED")
+            print("ERROR: SHADER COMPILATION_FAILED ON: ", str(shaderType))
             return None    
         
-        return vertexShader
-            
-
+        return shader
+    
     def setShaderUniforms(self):
         colorLocation = glGetUniformLocation(self.shader, "objectColor")
         glUseProgram(self.shader)
