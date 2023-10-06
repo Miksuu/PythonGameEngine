@@ -8,13 +8,13 @@ from Camera import Camera
 from InputManager import InputManager
 
 class GameObject:
-    def __init__(self, name, vertices, position, color, speed):
+    def __init__(self, name, position, color, speed):
         self.name = name
         self.position = Vector2(position.x, position.y)
         self.color = color
         self.speed = speed
         self.velocity = Vector2(0, 0)
-        self.vertices = vertices
+        #self.asset = "DefaultGameObject"
                 
     def handleGameLoop(self):
         if self.velocity:
@@ -22,7 +22,7 @@ class GameObject:
 
         self.renderer.shader.setShaderUniforms()        
         self.renderer.updateVertexData(self.position)
-        self.renderer.drawVboRectangle()
+        self.renderer.drawAsset()
 
         #print(f"Updated vertices: {self.vertices}")        
 

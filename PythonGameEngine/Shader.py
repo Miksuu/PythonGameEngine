@@ -1,50 +1,21 @@
 from OpenGL.GL import *
+from FileManager import FileManager
 
 import ctypes
 
 class Shader:
-    def __init__(self, color):
+    def __init__(self, color, assetName):
         self.color = color
+        self.assetName = assetName
+        
         self.shader = self.initialize()
 
     def initialize(self):
-        # Vertex Shader
-        vertexShaderSource = """
-        #version 330 core
-        layout (location = 0) in vec3 aPos;
-        void main()
-        {
-            gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
-        }
-        """
-    
-        vertexShader = glCreateShader(GL_VERTEX_SHADER)
-        glShaderSource(vertexShader, vertexShaderSource)
-        glCompileShader(vertexShader)
-    
-        # Check for shader compile errors
-        if not glGetShaderiv(vertexShader, GL_COMPILE_STATUS):
-            print("ERROR: SHADER VERTEX COMPILATION_FAILED")
-            return None
-    
-        fragmentShaderSource = f"""
-        #version 330 core
-        out vec4 FragColor;
-        void main()
-        {{
-            FragColor = vec4({self.color[0]}f, {self.color[1]}f, {self.color[2]}f, 1f);
-        }}
-        """
-    
-        fragmentShader = glCreateShader(GL_FRAGMENT_SHADER)
-        glShaderSource(fragmentShader, fragmentShaderSource)
-        glCompileShader(fragmentShader)
-    
-        # Check for shader compile errors
-        if not glGetShaderiv(fragmentShader, GL_COMPILE_STATUS):
-            print("ERROR: SHADER FRAGMENT COMPILATION_FAILED")
-            return None
-    
+        pathToSearchFor = "Assets/" + self.assetName + "/"
+
+        vertexShader = self.initShader(pathToSearchFor, "shader.vert", GL_VERTEX_SHADER)
+        fragmentShader = self.initShader(pathToSearchFor, "shader.frag", GL_FRAGMENT_SHADER)
+        
         # Link shaders
         shader = glCreateProgram()
         glAttachShader(shader, vertexShader)
@@ -58,6 +29,21 @@ class Shader:
     
         return shader
 
+    def initShader(self, pathToSearchFor, postFix, shaderType):
+        shaderSourceFile = FileManager(pathToSearchFor + postFix)
+        shaderSource = shaderSourceFile.readAsString()     
+
+        shader = glCreateShader(shaderType)
+        glShaderSource(shader, shaderSource)
+        glCompileShader(shader)
+    
+        # Check for shader compile errors
+        if not glGetShaderiv(shader, GL_COMPILE_STATUS):
+            print("ERROR: SHADER COMPILATION_FAILED ON: ", str(shaderType))
+            return None    
+        
+        return shader
+    
     def setShaderUniforms(self):
         colorLocation = glGetUniformLocation(self.shader, "objectColor")
         glUseProgram(self.shader)

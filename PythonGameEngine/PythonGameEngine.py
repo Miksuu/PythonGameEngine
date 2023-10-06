@@ -7,6 +7,7 @@ from Camera import Camera
 from GameObjectManager import GameObjectManager
 from Vector2 import Vector2
 from WindowManagement import WindowManagement
+from FileManager import FileManager
 # GameObjects
 from GameObject import GameObject
 from Player import Player
@@ -18,20 +19,6 @@ windowManagement = WindowManagement(gameObjectManager, 1200, 1200)
 projectileCount = 0
 
 draggingMouse = False
-
-# Temp, add these to some other class
-# Vertex data (x, y coordinates)
-vertexDataForPlayer = [
-              -0.1, -0.2,
-               0.1, -0.2,
-               0.1,  0.2,
-              -0.1,  0.2]
-
-vertexDataForProjectile = [
-              -0.01, -0.01,
-               0.01, -0.01,
-               0.01,  0.01,
-              -0.01,  0.01]
 
 def main():
     print("Starting...")
@@ -46,7 +33,7 @@ def main():
     glutMotionFunc(mouseDrag)
 
     # name, x, y positions as Vector2, color, speed, camera ref
-    player = Player("Player", vertexDataForPlayer, Vector2(0.1, 0.2), (1.0, 0.5, 0.7), 0.1)
+    player = Player("PlayerCharacter", Vector2(0.1, 0.2), (1.0, 0.5, 0.7), 0.1)
     gameObjectManager.addObject(player)
     
     # Run the GLUT mainloop
@@ -70,7 +57,8 @@ def mouseButton(button, state, x, y):
             # x, y positions as Vector2, color, speed, camera ref, velocity
             projectilePosition = Vector2(player.position.x, player.position.y)
             projectileColor = (0.2, 1.0, 0.2);
-            projectile = Bullet("Bullet_" + str(projectileCount), vertexDataForProjectile, projectilePosition, projectileColor, x, y)
+            #projectile = Bullet("Bullet" + str(projectileCount), projectilePosition, projectileColor, x, y)
+            projectile = Bullet("Bullet", projectilePosition, projectileColor, x, y)
             gameObjectManager.addObject(projectile)
             projectileCount += 1
     else:
