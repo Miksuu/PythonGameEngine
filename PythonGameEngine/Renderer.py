@@ -7,7 +7,7 @@ from Shader import Shader
 from FileManager import FileManager
 
 class Renderer:
-    def __init__(self, color, camera, gameObjectName):
+    def __init__(self, camera, gameObjectName):
         # Search the asset and assign it to the class
         assetNameToSearchFor = "Assets/" + gameObjectName + "/vboData.py"
         self.playerAsset = FileManager(assetNameToSearchFor)
@@ -24,7 +24,7 @@ class Renderer:
         
         self.debugColor = [1, 1, 0.5]
 
-        self.shader = Shader(color, gameObjectName);               
+        self.shader = Shader(gameObjectName);               
         
     def initializeVboData(self):
         vbo = glGenBuffers(1)

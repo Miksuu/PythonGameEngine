@@ -8,10 +8,9 @@ from Camera import Camera
 from InputManager import InputManager
 
 class GameObject:
-    def __init__(self, name, position, color, speed):
+    def __init__(self, name, position, speed):
         self.name = name
         self.position = Vector2(position.x, position.y)
-        self.color = color
         self.speed = speed
         self.velocity = Vector2(0, 0)
         #self.asset = "DefaultGameObject"
