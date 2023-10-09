@@ -49,15 +49,15 @@ class Renderer:
 
     def updateVbo(self, position):
         glBindBuffer(GL_ARRAY_BUFFER, self.vbo)
-        
-        new_x = position.x
-        new_y = position.y
     
         for i in range(0, len(self.vboArray), 7):
-            self.vboArray[i] += new_x
-            self.vboArray[i+1] += new_y
+            self.vboArray[i] += position.x
+            self.vboArray[i+1] += position.y
             print(f"Updated self.vboArray: {self.vboArray}")
 
+        position.x = 0
+        position.y = 0
+            
         updatedData = array('f', self.vboArray)
         glBufferData(GL_ARRAY_BUFFER, len(updatedData) * 4, updatedData.tobytes(), GL_STATIC_DRAW)
     
