@@ -13,7 +13,6 @@ class GameObject:
         self.position = Vector2(position.x, position.y)
         self.velocity = Vector2(0, 0)            
 
-    # Update position based on velocity
     def update(self):
         self.position += self.velocity
 
