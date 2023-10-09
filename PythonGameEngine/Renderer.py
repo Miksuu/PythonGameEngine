@@ -46,19 +46,17 @@ class Renderer:
         self.updateVbo(position)
 
     def updateVbo(self, position):
-        print("Current Position: ", position.x, position.y)        
-
-        print("Before update:", self.vboArray)
         glBindBuffer(GL_ARRAY_BUFFER, self.vbo)
 
-        for i in range(0, 3*7, 7):
+        for i in range(0, len(self.vboArray), 7):
             self.vboArray[i] += position.x
             self.vboArray[i+1] += position.y
 
-        print("After update:", self.vboArray)
-
         updatedData = array('f', self.vboArray)
         glBufferData(GL_ARRAY_BUFFER, len(updatedData) * 4, updatedData.tobytes(), GL_STATIC_DRAW)
+
+    def __repr__(self):
+        return f"Renderer(VBO: {self.vbo}, VBOArray: {self.vboArray})"
             
     #Debugging tools, such as drawing the coordinates
     def setTextColor(self):
