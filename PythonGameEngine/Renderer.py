@@ -11,17 +11,29 @@ from ctypes import create_string_buffer
 from struct import unpack
 
 class Renderer:
-    def __init__(self, camera, gameObjectName):
+    def __init__(self, camera, gameObjectName, position):
         # Search the asset and assign it to the class
         assetNameToSearchFor = "Assets/" + gameObjectName + "/vboData.py"
         self.playerAsset = FileManager(assetNameToSearchFor)
         self.playerAsset.readImportlib()
         
-        self.shader = Shader(gameObjectName);      
-
-        # Assign vbo array from the file
+        self.shader = Shader(gameObjectName);  
+        
         self.vboArray = self.playerAsset.module.shader
         self.vboArray = array('f', self.vboArray)
+
+        numVertices = len(self.vboArray) // 7
+        xCenter = sum(self.vboArray[i] for i in range(0, len(self.vboArray), 7)) / numVertices
+        yCenter = sum(self.vboArray[i+1] for i in range(0, len(self.vboArray), 7)) / numVertices
+
+        for i in range(0, len(self.vboArray), 7):
+            self.vboArray[i] -= xCenter
+            self.vboArray[i] += position.x
+
+            self.vboArray[i+1] -= yCenter
+            self.vboArray[i+1] += position.y
+
+        # Initialize the VBO
         self.vbo = self.initializeVboData()
 
         if camera != None:

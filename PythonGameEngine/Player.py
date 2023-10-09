@@ -13,7 +13,7 @@ class Player(GameObject):
         
         self.camera = Camera()
         self.inputManager = InputManager(self, self.camera)
-        self.renderer = Renderer(self.camera, name)
+        self.renderer = Renderer(self.camera, name, position)
 
     def update(self):
         self.position += self.velocity

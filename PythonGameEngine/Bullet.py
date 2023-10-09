@@ -22,4 +22,4 @@ class Bullet(GameObject):
         self.velocity = direction.normalize() * 0.01
         print("Debug Velocity: ", self.velocity.x, " | ", self.velocity.y)
         
-        self.renderer = Renderer(None, name)
+        self.renderer = Renderer(None, name, position)
