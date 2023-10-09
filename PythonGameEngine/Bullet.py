@@ -6,13 +6,11 @@ class Bullet(GameObject):
     def __init__(self, name, position, mouseX, mouseY):
         super().__init__(name, position)
         
-        # Debugging
         print("Debug Position: ", position.x, " | ", position.y)
         
-        # Calculate the mouse offsets
         offsetX = (mouseX - 600) * 0.001
         offsetY = (mouseY - 600) * 0.001
-
+        
         print("Debug calculated offset: ", offsetX, " | ", offsetY)
 
         # Compute the direction vector

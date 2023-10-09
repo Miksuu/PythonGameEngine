@@ -16,13 +16,11 @@ class Shader:
         vertexShader = self.initShader(pathToSearchFor, "shader.vert", GL_VERTEX_SHADER)
         fragmentShader = self.initShader(pathToSearchFor, "shader.frag", GL_FRAGMENT_SHADER)
         
-        # Link shaders
         shader = glCreateProgram()
         glAttachShader(shader, vertexShader)
         glAttachShader(shader, fragmentShader)
         glLinkProgram(shader)
     
-        # Check for linking errors
         if not glGetProgramiv(shader, GL_LINK_STATUS):
             print("ERROR: SHADER PROGRAMLINKING_FAILED")
             return None
@@ -37,7 +35,6 @@ class Shader:
         glShaderSource(shader, shaderSource)
         glCompileShader(shader)
     
-        # Check for shader compile errors
         if not glGetShaderiv(shader, GL_COMPILE_STATUS):
             print("ERROR: SHADER COMPILATION_FAILED ON: ", str(shaderType))
             return None    

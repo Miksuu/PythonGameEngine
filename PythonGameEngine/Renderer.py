@@ -12,7 +12,6 @@ from struct import unpack
 
 class Renderer:
     def __init__(self, camera, gameObjectName, position):
-        # Search the asset and assign it to the class
         assetNameToSearchFor = "Assets/" + gameObjectName + "/vboData.py"
         self.playerAsset = FileManager(assetNameToSearchFor)
         self.playerAsset.readImportlib()
@@ -33,7 +32,6 @@ class Renderer:
             self.vboArray[i+1] -= yCenter
             self.vboArray[i+1] += position.y
 
-        # Initialize the VBO
         self.vbo = self.initializeVboData()
 
         if camera != None:
@@ -65,11 +63,8 @@ class Renderer:
 
         updatedData = array('f', self.vboArray)
         glBufferData(GL_ARRAY_BUFFER, len(updatedData) * 4, updatedData.tobytes(), GL_STATIC_DRAW)
-    
-    def __repr__(self):
-        return f"Renderer(VBO: {self.vbo}, VBOArray: {self.vboArray})"
             
-    #Debugging tools, such as drawing the coordinates
+    
     def setTextColor(self):
         glColor3f(self.debugColor[0], self.debugColor[1], self.debugColor[2])
 
@@ -77,9 +72,6 @@ class Renderer:
         glColor3f(self.debugColor[0], self.debugColor[1], self.debugColor[2])
 
     def drawText(self, name, position, text):
-        #print(position.x, " | ", position.y)
-        # Check if the object's position is within the window
-        # Refactor this later to move with the camera
         if position.x >= -1 and position.x <= 1 and position.y >= -1 and position.y <= 1:
             glRasterPos2f(position.x, position.y)
             for char in text:

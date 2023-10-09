@@ -19,9 +19,7 @@ class GameObject:
     def handleGameLoop(self):
         #self.renderer.shader.setShaderUniforms()        
         self.renderer.updateVbo(self.velocity)
-        self.renderer.drawAsset() 
-        #print(self.position.x, "|", self.velocity.x)        
-
+        self.renderer.drawAsset()       
         self.update()
         
         # Draw coordinates on top of the object, formatted to 2 decimal places

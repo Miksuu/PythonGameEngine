@@ -28,15 +28,12 @@ def main():
     glutKeyboardUpFunc(keyboardUp)
     glutIdleFunc(idle)
     
-    # Lines to handle mouse movement
     glutMouseFunc(mouseButton)
     glutMotionFunc(mouseDrag)
 
-    # name, x, y positions as Vector2, color, speed, camera ref
     player = Player("PlayerCharacter", Vector2(0, 0))
     gameObjectManager.addObject(player)
     
-    # Run the GLUT mainloop
     print("Starting GLUT Main Loop")
     glutMainLoop()
     
@@ -46,15 +43,12 @@ def mouseButton(button, state, x, y):
     global draggingMouse
 
     if state == GLUT_DOWN:
-        # Dragging mouse, camera control
         if button == GLUT_RIGHT_BUTTON:
             draggingMouse = True
-            #recenterCamera() # Re-center when the button is released
+            #recenterCamera()
 
-        # Shooting mechanics implementation
         if button == GLUT_LEFT_BUTTON:
             projectilePosition = Vector2(player.position.x, player.position.y)
-            #print(player.position.x, "|", player.velocity.x)    
             projectile = Bullet("Bullet", projectilePosition, x, y)
             gameObjectManager.addObject(projectile)
     else:
@@ -63,8 +57,6 @@ def mouseButton(button, state, x, y):
 def mouseDrag(x, y):
     if draggingMouse:
         player.inputManager.handleMouseMovement(x, y)
-        # Need to keep updating the position while mouse is on the movement
-        #glutPostRedisplay()
 
 def recenterCamera():
     camera.position = player.position

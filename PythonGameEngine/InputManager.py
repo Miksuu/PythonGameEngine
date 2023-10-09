@@ -10,10 +10,10 @@ class InputManager:
     def __init__(self, objectToControl, camera):
         self.objectToControl = objectToControl
         self.camera = camera
-        self.keys = {}  # Initialize an empty dictionary to hold key states
+        self.keys = {}
 
     def keyDown(self, key):
-        self.keys[ord(key)] = True  # Set the state to True when the key is down
+        self.keys[ord(key)] = True
 
     def keyUp(self, key):
         self.keys[ord(key)] = False
@@ -24,7 +24,6 @@ class InputManager:
             self.objectToControl.velocity.x = 0
 
     def update(self):
-        # Check the state of each key and update velocity accordingly
         if self.keys.get(ord('w'), False):
             self.objectToControl.velocity.y = 1 * self.objectToControl.movementSpeed
         if self.keys.get(ord('a'), False):
@@ -34,10 +33,5 @@ class InputManager:
         if self.keys.get(ord('d'), False):
             self.objectToControl.velocity.x = 1 * self.objectToControl.movementSpeed
             
-        #print(self.objectToControl.__repr__)
-
     def handleMouseMovement(self, x, y):
         self.camera.updateOrientation(x, y, self.objectToControl)
-        
-    def __repr__(self):
-        return f"InputManager(Keys: {self.keys})"
