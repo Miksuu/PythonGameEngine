@@ -6,7 +6,7 @@ import ctypes
 class Shader:
     def __init__(self, assetName):
         self.assetName = assetName
-        self.color = (0,0,0)
+        # self.color = (0,0,0)
         self.shader = self.initialize()
         glUseProgram(self.shader)
 
@@ -44,8 +44,8 @@ class Shader:
         
         return shader
     
-    def setShaderUniforms(self):
-        colorLocation = glGetUniformLocation(self.shader, "objectColor")
-        glUseProgram(self.shader)
-        colorArray = (ctypes.c_float * len(self.color))(*self.color)
-        glUniform3fv(colorLocation, 1, colorArray)
+    # def setShaderUniforms(self):
+    #     colorLocation = glGetUniformLocation(self.shader, "objectColor")
+    #     glUseProgram(self.shader)
+    #     colorArray = (ctypes.c_float * len(self.color))(*self.color)
+    #     glUniform3fv(colorLocation, 1, colorArray)

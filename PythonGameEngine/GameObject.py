@@ -17,7 +17,7 @@ class GameObject:
         self.position += self.velocity
 
     def handleGameLoop(self):
-        self.renderer.shader.setShaderUniforms()        
+        #self.renderer.shader.setShaderUniforms()        
         self.renderer.updateVbo(self.velocity)
         self.renderer.drawAsset() 
         #print(self.position.x, "|", self.velocity.x)        
