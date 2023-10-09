@@ -4,7 +4,7 @@ from Vector2 import Vector2
 
 class Bullet(GameObject):
     def __init__(self, name, position, mouseX, mouseY):
-        super().__init__(name, position, 0.1)
+        super().__init__(name, position)
         
         offsetX = (mouseX - 600) * 0.001  # Assuming 1200x1200 window, refactor this later
         offsetY = (mouseY - 600) * 0.001

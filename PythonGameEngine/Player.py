@@ -7,8 +7,8 @@ from Camera import Camera
 from InputManager import InputManager
 
 class Player(GameObject):
-    def __init__(self, name, position, speed):
-        super().__init__(name, position, speed)
+    def __init__(self, name, position):
+        super().__init__(name, position)
         
         self.camera = Camera()
         self.inputManager = InputManager(self, self.camera)
