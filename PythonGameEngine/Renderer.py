@@ -41,7 +41,6 @@ class Renderer:
 
         return vbo
 
-        
     def drawAsset(self):
         glEnableVertexAttribArray(0)
         glEnableVertexAttribArray(1)
@@ -49,7 +48,6 @@ class Renderer:
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 28, ctypes.c_void_p(0))
         glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 28, ctypes.c_void_p(12))
         glDrawArrays(GL_TRIANGLES, 0, 3)
-
 
     def updateVertexData(self, position):
         self.vboArray = self.originalVertices
