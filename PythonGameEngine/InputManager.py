@@ -4,30 +4,41 @@ from OpenGL.GLUT import*
 import sys
 
 from Camera import Camera
+from Vector2 import Vector2
 
 class InputManager:
     def __init__(self, objectToControl, camera):
+        self.keys = {}
         self.objectToControl = objectToControl
+        
         self.camera = camera
         
+    def keyDown(self, key):
+        self.keys[key] = True
+
+    def keyUp(self, key):
+        self.keys[key] = False
+    
     def move(self, key):
-        #print(f"GameObject position before move: {self.objectToControl.position.x} | {self.objectToControl.position.y}")
-        if ord(key) == ord('w'):  # Move Up
-            self.objectToControl.position.y += 0.1
-        elif ord(key) == ord('s'):  # Move Down
-            self.objectToControl.position.y -= 0.1
-        elif ord(key) == ord('a'):  # Move Left
-            self.objectToControl.position.x -= 0.1
-        elif ord(key) == ord('d'):  # Move Right
-            self.objectToControl.position.x += 0.1
+        direction = Vector2(0,0)        
+        
+        if self.keys.get('w', False):
+            direction += Vector2(0, 1)
+        if self.keys.get('a', False):
+            direction += Vector2(-1, 0)
+        if self.keys.get('s', False):
+            direction += Vector2(0, -1)
+        if self.keys.get('d', False):
+            direction += Vector2(1, 0)
 
         if ord(key) == 27:  # ESC key
             print("Exiting...")
             glutLeaveMainLoop()
         glutPostRedisplay()
-        #print(f"GameObject position after move: {self.objectToControl.position.x} | {self.objectToControl.position.y}")
 
     def handleMouseMovement(self, x, y):
-        #print(f"Mouse moved to: ({x}, {y})")
         self.camera.updateOrientation(x, y, self.objectToControl)
+        
+    def __repr__(self):
+        return f"InputManager(Keys: {self.keys})"
     
