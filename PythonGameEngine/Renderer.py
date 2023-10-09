@@ -43,45 +43,16 @@ class Renderer:
 
         
     def drawAsset(self):
-        #glBindBuffer(GL_ARRAY_BUFFER, self.vbo)
-        
-        # Change to sizeof(7 * len(data_ ))
-        #glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * 4, ctypes.c_void_p(0))
-
-        # Enable vertex attributes
-        glEnableVertexAttribArray(0)  # Position attribute at index 0
-        glEnableVertexAttribArray(1)  # Color attribute at index 1
-
-        # Bind the VBO
+        glEnableVertexAttribArray(0)
+        glEnableVertexAttribArray(1)
         glBindBuffer(GL_ARRAY_BUFFER, self.vbo)
-
-        # Point to the data for the vertex attributes
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 28, ctypes.c_void_p(0))
         glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 28, ctypes.c_void_p(12))
+        glDrawArrays(GL_TRIANGLES, 0, 3)
 
-        # Draw the triangle
-        glDrawArrays(GL_TRIANGLES, 0, 3)  # Drawing triangles, starting from vertex 0, and using 3 vertices
-
-        # Draw the rectangle using two triangles
-        #glDrawArrays(GL_TRIANGLE_FAN, 0, 4)
 
     def updateVertexData(self, position):
-        #print(f"Updating with position: ({position.x}, {position.y})")        
-
-        #self.vboArray = self.originalVertices.copy()
         self.vboArray = self.originalVertices
-
-        # Make sure the length of vertexData is a multiple of 2 for x, y coordinates
-        # if len(self.vboArray) % 2 != 0:
-        #     raise ValueError("Invalid length for vertexData")
-
-        # print(len(self.vboArray))
-
-        # for i in range(0, len(self.vboArray), 2):
-        #     self.vboArray[i] += position.x
-        #     self.vboArray[i+1] += position.y
-
-        # Update the VBO
         self.updateVbo()
 
     def updateVbo(self):
