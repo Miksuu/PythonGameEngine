@@ -44,20 +44,13 @@ class Renderer:
         glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 28, ctypes.c_void_p(12))
         glDrawArrays(GL_TRIANGLES, 0, 3)
 
-    def updateVertexData(self, position):
-        self.updateVbo(position)
-
-    def updateVbo(self, position):
+    def updateVbo(self, velocity):
         glBindBuffer(GL_ARRAY_BUFFER, self.vbo)
     
         for i in range(0, len(self.vboArray), 7):
-            self.vboArray[i] += position.x
-            self.vboArray[i+1] += position.y
-            print(f"Updated self.vboArray: {self.vboArray}")
+            self.vboArray[i] += velocity.x
+            self.vboArray[i+1] += velocity.y
 
-        position.x = 0
-        position.y = 0
-            
         updatedData = array('f', self.vboArray)
         glBufferData(GL_ARRAY_BUFFER, len(updatedData) * 4, updatedData.tobytes(), GL_STATIC_DRAW)
     
