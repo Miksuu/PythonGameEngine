@@ -7,6 +7,8 @@ from Shader import Shader
 from FileManager import FileManager
 
 from array import array
+from ctypes import create_string_buffer
+from struct import unpack
 
 class Renderer:
     def __init__(self, camera, gameObjectName):
@@ -47,14 +49,18 @@ class Renderer:
 
     def updateVbo(self, position):
         glBindBuffer(GL_ARRAY_BUFFER, self.vbo)
-
+        
+        new_x = position.x
+        new_y = position.y
+    
         for i in range(0, len(self.vboArray), 7):
-            self.vboArray[i] += position.x
-            self.vboArray[i+1] += position.y
+            self.vboArray[i] += new_x
+            self.vboArray[i+1] += new_y
+            print(f"Updated self.vboArray: {self.vboArray}")
 
         updatedData = array('f', self.vboArray)
         glBufferData(GL_ARRAY_BUFFER, len(updatedData) * 4, updatedData.tobytes(), GL_STATIC_DRAW)
-
+    
     def __repr__(self):
         return f"Renderer(VBO: {self.vbo}, VBOArray: {self.vboArray})"
             

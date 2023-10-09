@@ -27,6 +27,8 @@ def main():
     windowManagement.setupWindow()
     
     glutKeyboardFunc(keyboard)
+    glutKeyboardUpFunc(keyboardUp)
+    glutIdleFunc(idle)
     
     # Lines to handle mouse movement
     glutMouseFunc(mouseButton)
@@ -67,12 +69,22 @@ def mouseDrag(x, y):
     if draggingMouse:
         player.inputManager.handleMouseMovement(x, y)
         # Need to keep updating the position while mouse is on the movement
-        glutPostRedisplay()
+        #glutPostRedisplay()
 
 def recenterCamera():
     camera.position = player.position
 
+# def keyboard(key, x, y):
+#     player.inputManager.update()
+
 def keyboard(key, x, y):
-    player.inputManager.move(key)
+    player.inputManager.keyDown(key)
+
+def keyboardUp(key, x, y):
+    player.inputManager.keyUp(key)
+
+def idle():
+    player.inputManager.update()
+    glutPostRedisplay()
 
 main()

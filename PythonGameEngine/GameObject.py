@@ -21,7 +21,7 @@ class GameObject:
         self.renderer.shader.setShaderUniforms()        
         self.renderer.updateVertexData(self.position)
         self.renderer.drawAsset() 
-
+        
         # Draw coordinates on top of the object, formatted to 2 decimal places
         # infoText = f"{self.name}({self.position.x:.2f}, {self.position.y:.2f})"
         # self.renderer.setTextColor()  # Set text color to white
