@@ -9,7 +9,6 @@ gameObjectManager = GameObjectManager
 
 class WindowManagement:
     def __init__(self, gameObjectManager, windowSizeX, windowSizeY):
-        # Setup the GameObjectManager ref
         self.gameObjectManager = gameObjectManager
         self.windowSizeX = windowSizeX
         self.windowSizeY = windowSizeY
@@ -19,7 +18,6 @@ class WindowManagement:
         glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH)
         glutInitWindowSize(self.windowSizeX, self.windowSizeY)
         glutCreateWindow("test")
-        #glutIdleFunc(self.idleFunctionWrapper)
         glutDisplayFunc(self.plotpoints)
         glClearColor(0.0,0.0,0.0,1.0)
         gluOrtho2D(-1.0,1.0,-1.0,1.0)
@@ -30,7 +28,3 @@ class WindowManagement:
         self.gameObjectManager.handleGameLoop()
         glutSwapBuffers()
         glFlush()
-        
-    def idleFunctionWrapper(self):
-        self.gameObjectManager.handleGameLoop()
-       # glutPostRedisplay()
