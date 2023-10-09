@@ -16,8 +16,6 @@ from Bullet import Bullet
 gameObjectManager = GameObjectManager()
 windowManagement = WindowManagement(gameObjectManager, 1200, 1200)
 
-projectileCount = 0
-
 draggingMouse = False
 
 def main():
@@ -27,13 +25,15 @@ def main():
     windowManagement.setupWindow()
     
     glutKeyboardFunc(keyboard)
+    glutKeyboardUpFunc(keyboardUp)
+    glutIdleFunc(idle)
     
     # Lines to handle mouse movement
     glutMouseFunc(mouseButton)
     glutMotionFunc(mouseDrag)
 
     # name, x, y positions as Vector2, color, speed, camera ref
-    player = Player("PlayerCharacter", Vector2(0.1, 0.2), (1.0, 0.5, 0.7), 0.1)
+    player = Player("PlayerCharacter", Vector2(0, 0))
     gameObjectManager.addObject(player)
     
     # Run the GLUT mainloop
@@ -53,14 +53,10 @@ def mouseButton(button, state, x, y):
 
         # Shooting mechanics implementation
         if button == GLUT_LEFT_BUTTON:
-            global projectileCount
-            # x, y positions as Vector2, color, speed, camera ref, velocity
             projectilePosition = Vector2(player.position.x, player.position.y)
-            projectileColor = (0.2, 1.0, 0.2);
-            #projectile = Bullet("Bullet" + str(projectileCount), projectilePosition, projectileColor, x, y)
-            projectile = Bullet("Bullet", projectilePosition, projectileColor, x, y)
+            #print(player.position.x, "|", player.velocity.x)    
+            projectile = Bullet("Bullet", projectilePosition, x, y)
             gameObjectManager.addObject(projectile)
-            projectileCount += 1
     else:
         draggingMouse = False
 
@@ -68,12 +64,22 @@ def mouseDrag(x, y):
     if draggingMouse:
         player.inputManager.handleMouseMovement(x, y)
         # Need to keep updating the position while mouse is on the movement
-        glutPostRedisplay()
+        #glutPostRedisplay()
 
 def recenterCamera():
     camera.position = player.position
 
+# def keyboard(key, x, y):
+#     player.inputManager.update()
+
 def keyboard(key, x, y):
-    player.inputManager.move(key)
+    player.inputManager.keyDown(key)
+
+def keyboardUp(key, x, y):
+    player.inputManager.keyUp(key)
+
+def idle():
+    player.inputManager.update()
+    glutPostRedisplay()
 
 main()

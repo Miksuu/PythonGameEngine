@@ -4,11 +4,11 @@ from FileManager import FileManager
 import ctypes
 
 class Shader:
-    def __init__(self, color, assetName):
-        self.color = color
+    def __init__(self, assetName):
         self.assetName = assetName
-        
+        self.color = (0,0,0)
         self.shader = self.initialize()
+        glUseProgram(self.shader)
 
     def initialize(self):
         pathToSearchFor = "Assets/" + self.assetName + "/"

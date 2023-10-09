@@ -3,15 +3,23 @@ from Renderer import Renderer
 from Vector2 import Vector2
 
 class Bullet(GameObject):
-    def __init__(self, name, position, color, mouseX, mouseY):
-        super().__init__(name, position, color, 0.1)
+    def __init__(self, name, position, mouseX, mouseY):
+        super().__init__(name, position)
         
-        offsetX = (mouseX - 600) * 0.001  # Assuming 1200x1200 window, refactor this later
+        # Debugging
+        print("Debug Position: ", position.x, " | ", position.y)
+        
+        # Calculate the mouse offsets
+        offsetX = (mouseX - 600) * 0.001
         offsetY = (mouseY - 600) * 0.001
 
-        print("POS: ", position.x, " | ", position.y)
-        print("calculated offset: ", offsetX, " | ", offsetY)
+        print("Debug calculated offset: ", offsetX, " | ", offsetY)
 
-        self.velocity = Vector2(offsetX, -offsetY).normalize() * 0.01 ## temp way to set the speed
-        #print("finalVelocity: " , self.velocity.x, " | ", self.velocity.y)
-        self.renderer = Renderer(color, None, name)
+        # Compute the direction vector
+        direction = Vector2(mouseX - 600, 600 - mouseY) - position
+        print("Debug Direction: ", direction.x, " | ", direction.y)
+        
+        self.velocity = direction.normalize() * 0.01
+        print("Debug Velocity: ", self.velocity.x, " | ", self.velocity.y)
+        
+        self.renderer = Renderer(None, name, position)

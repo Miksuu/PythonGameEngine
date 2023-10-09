@@ -19,7 +19,7 @@ class WindowManagement:
         glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH)
         glutInitWindowSize(self.windowSizeX, self.windowSizeY)
         glutCreateWindow("test")
-        glutIdleFunc(self.idleFunctionWrapper)
+        #glutIdleFunc(self.idleFunctionWrapper)
         glutDisplayFunc(self.plotpoints)
         glClearColor(0.0,0.0,0.0,1.0)
         gluOrtho2D(-1.0,1.0,-1.0,1.0)
@@ -33,4 +33,4 @@ class WindowManagement:
         
     def idleFunctionWrapper(self):
         self.gameObjectManager.handleGameLoop()
-        glutPostRedisplay()
+       # glutPostRedisplay()

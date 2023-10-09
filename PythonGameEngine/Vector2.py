@@ -24,6 +24,9 @@ class Vector2:
     # Scalar Division
     def __truediv__(self, scalar):
         return Vector2(self.x / scalar, self.y / scalar)
+    
+    def __repr__(self):
+        return f"Vector2({self.x}, {self.y})"
 
     # Magnitude (Length)
     def magnitude(self):

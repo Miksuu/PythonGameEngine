@@ -6,64 +6,68 @@ from Camera import Camera
 from Shader import Shader
 from FileManager import FileManager
 
+from array import array
+from ctypes import create_string_buffer
+from struct import unpack
+
 class Renderer:
-    def __init__(self, color, camera, gameObjectName):
+    def __init__(self, camera, gameObjectName, position):
         # Search the asset and assign it to the class
         assetNameToSearchFor = "Assets/" + gameObjectName + "/vboData.py"
         self.playerAsset = FileManager(assetNameToSearchFor)
         self.playerAsset.readImportlib()
         
-        # Assign vbo array from the file
-        self.vboArray = self.playerAsset.module.vbo
-        self.originalVertices = self.vboArray.copy()
-        self.vbo = self.initializeVboData()
+        self.shader = Shader(gameObjectName);  
         
-        #self.shaderArray = self.playerAsset.module.shader
+        self.vboArray = self.playerAsset.module.shader
+        self.vboArray = array('f', self.vboArray)
+
+        numVertices = len(self.vboArray) // 7
+        xCenter = sum(self.vboArray[i] for i in range(0, len(self.vboArray), 7)) / numVertices
+        yCenter = sum(self.vboArray[i+1] for i in range(0, len(self.vboArray), 7)) / numVertices
+
+        for i in range(0, len(self.vboArray), 7):
+            self.vboArray[i] -= xCenter
+            self.vboArray[i] += position.x
+
+            self.vboArray[i+1] -= yCenter
+            self.vboArray[i+1] += position.y
+
+        # Initialize the VBO
+        self.vbo = self.initializeVboData()
+
         if camera != None:
             self.camera = camera
         
         self.debugColor = [1, 1, 0.5]
 
-        self.shader = Shader(color, gameObjectName);               
-        
     def initializeVboData(self):
         vbo = glGenBuffers(1)
         glBindBuffer(GL_ARRAY_BUFFER, vbo)
-        glBufferData(GL_ARRAY_BUFFER, len(self.vboArray) * 4, (ctypes.c_float * len(self.vboArray))(*self.vboArray), GL_STATIC_DRAW)
+        glBufferData(GL_ARRAY_BUFFER, self.vboArray.buffer_info()[1] * self.vboArray.itemsize, self.vboArray.tobytes(), GL_STATIC_DRAW)
+
         return vbo
-        
+
     def drawAsset(self):
-        glBindBuffer(GL_ARRAY_BUFFER, self.vbo)
-
-        # Specify the layout of the vertex data
         glEnableVertexAttribArray(0)
-        
-        # Change to sizeof(7 * len(data_ ))
-        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * 4, ctypes.c_void_p(0))
-
-        # Draw the rectangle using two triangles
-        glDrawArrays(GL_TRIANGLE_FAN, 0, 4)
-
-    def updateVertexData(self, position):
-        #print(f"Updating with position: ({position.x}, {position.y})")        
-
-        self.vboArray = self.originalVertices.copy()
-
-        # Make sure the length of vertexData is a multiple of 2 for x, y coordinates
-        if len(self.vboArray) % 2 != 0:
-            raise ValueError("Invalid length for vertexData")
-
-        # Update the vertex data based on the position
-        for i in range(0, len(self.vboArray), 2):
-            self.vboArray[i] += position.x
-            self.vboArray[i+1] += position.y
-
-        # Update the VBO
-        self.updateVbo()
-
-    def updateVbo(self):
+        glEnableVertexAttribArray(1)
         glBindBuffer(GL_ARRAY_BUFFER, self.vbo)
-        glBufferSubData(GL_ARRAY_BUFFER, 0, len(self.vboArray) * 4, (ctypes.c_float * len(self.vboArray))(*self.vboArray))
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 28, ctypes.c_void_p(0))
+        glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 28, ctypes.c_void_p(12))
+        glDrawArrays(GL_TRIANGLES, 0, 3)
+
+    def updateVbo(self, velocity):
+        glBindBuffer(GL_ARRAY_BUFFER, self.vbo)
+    
+        for i in range(0, len(self.vboArray), 7):
+            self.vboArray[i] += velocity.x
+            self.vboArray[i+1] += velocity.y
+
+        updatedData = array('f', self.vboArray)
+        glBufferData(GL_ARRAY_BUFFER, len(updatedData) * 4, updatedData.tobytes(), GL_STATIC_DRAW)
+    
+    def __repr__(self):
+        return f"Renderer(VBO: {self.vbo}, VBOArray: {self.vboArray})"
             
     #Debugging tools, such as drawing the coordinates
     def setTextColor(self):
