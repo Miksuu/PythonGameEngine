@@ -69,9 +69,6 @@ def mouseDrag(x, y):
 def recenterCamera():
     camera.position = player.position
 
-# def keyboard(key, x, y):
-#     player.inputManager.update()
-
 def keyboard(key, x, y):
     player.inputManager.keyDown(key)
 
