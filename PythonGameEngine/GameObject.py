@@ -17,10 +17,12 @@ class GameObject:
         self.position += self.velocity
 
     def handleGameLoop(self):
-        self.update()
         self.renderer.shader.setShaderUniforms()        
-        self.renderer.updateVertexData(self.position)
+        self.renderer.updateVbo(self.velocity)
         self.renderer.drawAsset() 
+        #print(self.position.x, "|", self.velocity.x)        
+
+        self.update()
         
         # Draw coordinates on top of the object, formatted to 2 decimal places
         # infoText = f"{self.name}({self.position.x:.2f}, {self.position.y:.2f})"

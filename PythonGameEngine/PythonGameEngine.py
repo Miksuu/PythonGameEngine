@@ -16,8 +16,6 @@ from Bullet import Bullet
 gameObjectManager = GameObjectManager()
 windowManagement = WindowManagement(gameObjectManager, 1200, 1200)
 
-projectileCount = 0
-
 draggingMouse = False
 
 def main():
@@ -55,13 +53,10 @@ def mouseButton(button, state, x, y):
 
         # Shooting mechanics implementation
         if button == GLUT_LEFT_BUTTON:
-            global projectileCount
-            # x, y positions as Vector2, color, speed, camera ref, velocity
             projectilePosition = Vector2(player.position.x, player.position.y)
-            #projectile = Bullet("Bullet" + str(projectileCount), projectilePosition, projectileColor, x, y)
+            #print(player.position.x, "|", player.velocity.x)    
             projectile = Bullet("Bullet", projectilePosition, x, y)
             gameObjectManager.addObject(projectile)
-            projectileCount += 1
     else:
         draggingMouse = False
 
