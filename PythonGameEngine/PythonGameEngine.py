@@ -33,7 +33,7 @@ def main():
     glutMotionFunc(mouseDrag)
 
     # name, x, y positions as Vector2, color, speed, camera ref
-    player = Player("PlayerCharacter", Vector2(0.1, 0.2), 0.1)
+    player = Player("PlayerCharacter", Vector2(0, 0), 0.1)
     gameObjectManager.addObject(player)
     
     # Run the GLUT mainloop

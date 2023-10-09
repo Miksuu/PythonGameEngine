@@ -20,11 +20,8 @@ class Renderer:
         # Assign vbo array from the file
         self.vboArray = self.playerAsset.module.shader
         self.vboArray = array('f', self.vboArray)
-        #self.vboArray = self.originalVertices.copy()
-        self.originalVertices = self.vboArray
         self.vbo = self.initializeVboData()
-        
-        #self.shaderArray = self.playerAsset.module.shader
+
         if camera != None:
             self.camera = camera
         
@@ -33,11 +30,7 @@ class Renderer:
     def initializeVboData(self):
         vbo = glGenBuffers(1)
         glBindBuffer(GL_ARRAY_BUFFER, vbo)
-
-        try:
-            glBufferData(GL_ARRAY_BUFFER, self.vboArray.buffer_info()[1] * self.vboArray.itemsize, self.vboArray.tobytes(), GL_STATIC_DRAW)
-        except Exception as e:
-            print("Error:", str(e))
+        glBufferData(GL_ARRAY_BUFFER, self.vboArray.buffer_info()[1] * self.vboArray.itemsize, self.vboArray.tobytes(), GL_STATIC_DRAW)
 
         return vbo
 
@@ -50,12 +43,22 @@ class Renderer:
         glDrawArrays(GL_TRIANGLES, 0, 3)
 
     def updateVertexData(self, position):
-        self.vboArray = self.originalVertices
-        self.updateVbo()
+        self.updateVbo(position)
 
-    def updateVbo(self):
+    def updateVbo(self, position):
+        print("Current Position: ", position.x, position.y)        
+
+        print("Before update:", self.vboArray)
         glBindBuffer(GL_ARRAY_BUFFER, self.vbo)
-        glBufferSubData(GL_ARRAY_BUFFER, 0, len(self.vboArray) * 4, (ctypes.c_float * len(self.vboArray))(*self.vboArray))
+
+        for i in range(0, 3*7, 7):
+            self.vboArray[i] += position.x
+            self.vboArray[i+1] += position.y
+
+        print("After update:", self.vboArray)
+
+        updatedData = array('f', self.vboArray)
+        glBufferData(GL_ARRAY_BUFFER, len(updatedData) * 4, updatedData.tobytes(), GL_STATIC_DRAW)
             
     #Debugging tools, such as drawing the coordinates
     def setTextColor(self):
