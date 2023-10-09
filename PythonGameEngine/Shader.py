@@ -8,6 +8,7 @@ class Shader:
         self.assetName = assetName
         self.color = (0,0,0)
         self.shader = self.initialize()
+        glUseProgram(self.shader)
 
     def initialize(self):
         pathToSearchFor = "Assets/" + self.assetName + "/"
