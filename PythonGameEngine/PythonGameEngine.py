@@ -43,16 +43,16 @@ def mouseButton(button, state, x, y):
     global draggingMouse
 
     if state == GLUT_DOWN:
-        if button == GLUT_RIGHT_BUTTON:
-            draggingMouse = True
+        #if button == GLUT_RIGHT_BUTTON:
+            #draggingMouse = True
             #recenterCamera()
 
         if button == GLUT_LEFT_BUTTON:
             projectilePosition = Vector2(player.position.x, player.position.y)
             projectile = Bullet("Bullet", projectilePosition, x, y)
             gameObjectManager.addObject(projectile)
-    else:
-        draggingMouse = False
+    #else:
+        #draggingMouse = False
 
 def mouseDrag(x, y):
     if draggingMouse:
