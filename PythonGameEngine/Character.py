@@ -18,8 +18,8 @@ class Character(GameObject):
         super().handleGameLoop()
 
     def equipGun(self, gun):
-        self.equipped_gun = gun
+        self.equippedGun = gun
 
     def attack(self, x, y, gameObjectManager):
-        if hasattr(self, 'equipped_gun'):
-            self.equipped_gun.shoot(self.transform, x, y, gameObjectManager)
+        if hasattr(self, 'equippedGun'):
+            self.equippedGun.shoot(self.transform, x, y, gameObjectManager)

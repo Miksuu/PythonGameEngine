@@ -19,4 +19,4 @@ class AIManager:
         
     def handleAIShooting(self, gameObjectManager):
         for ai in self.aiList:
-            ai.automaticShooting(gameObjectManager)            
+            ai.automaticShooting(gameObjectManager, self.aiList)            

@@ -17,9 +17,28 @@ class AI(Character):
     def update(self):
         super().update()
         
-    def automaticShooting(self, gameObjectManager):
+    def automaticShooting(self, gameObjectManager, aiList):
         currentTime = time.time()
         if currentTime - self.lastShootTime >= self.shootInterval:
-            x, y = 1, 1  # Dummy target coordinates for now
-            self.attack(x, y, gameObjectManager)
-            self.lastShootTime = currentTime
+            closest_ai = self.FindClosestTarget(self.transform.position, aiList)
+            if closest_ai:
+                target_position = closest_ai.transform.position
+                self.attack(target_position.x, target_position.y, gameObjectManager)
+                self.lastShootTime = currentTime
+            else:
+                print("No target found.")
+            
+    def FindClosestTarget(self, fromPosition, aiList):
+        closestAi = None
+        closestDistance = float('inf')
+
+        for ai in aiList:
+            if ai.transform.position == fromPosition:
+                continue
+
+            distance = (fromPosition - ai.transform.position).magnitude()
+            if distance < closestDistance:
+                closestDistance = distance
+                closestAi = ai
+
+        return closestAi
