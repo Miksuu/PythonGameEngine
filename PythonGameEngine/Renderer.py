@@ -64,7 +64,6 @@ class Renderer:
         updatedData = array('f', self.vboArray)
         glBufferData(GL_ARRAY_BUFFER, len(updatedData) * 4, updatedData.tobytes(), GL_STATIC_DRAW)
             
-    
     def setTextColor(self):
         glColor3f(self.debugColor[0], self.debugColor[1], self.debugColor[2])
 
