@@ -9,13 +9,17 @@ class AI(Character):
         super().__init__(name, position)
         self.equipped_gun = Gun("Pistol", 10)
         
+        self.lastShootTime = 0
+        self.shootInterval = 2
+        
         self.renderer = Renderer(None, name, position)
         
     def update(self):
         super().update()
         
     def automaticShooting(self, gameObjectManager):
-        while True:
+        currentTime = time.time()
+        if currentTime - self.lastShootTime >= self.shootInterval:
             x, y = 1, 1  # Dummy target coordinates for now
             self.attack(x, y, gameObjectManager)
-            time.sleep(2)  # Temp, Shoots every 2 seconds
+            self.lastShootTime = currentTime

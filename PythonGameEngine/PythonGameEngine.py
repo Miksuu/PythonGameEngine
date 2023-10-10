@@ -83,6 +83,8 @@ def idle():
     if currentTime - lastSpawnTime >= spawnInterval:
         aiManager.spawnAi(gameObjectManager)
         lastSpawnTime = currentTime
+        
+    aiManager.handleAIShooting(gameObjectManager)
     
     glutPostRedisplay()
 
