@@ -22,6 +22,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AIManager.py" />
+    <Compile Include="AI.py" />
+    <Compile Include="Gun.py" />
     <Compile Include="FileManager.py" />
     <Compile Include="Camera.py" />
     <Compile Include="GameObject.py" />

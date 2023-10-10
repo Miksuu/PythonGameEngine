@@ -1,6 +1,9 @@
 from OpenGL.GL import*
 from OpenGL.GLU import*
 from OpenGL.GLUT import*
+from AI import AI
+from AIManager import AIManager
+import time
 
 # Engine components
 from Camera import Camera
@@ -16,7 +19,12 @@ from Bullet import Bullet
 gameObjectManager = GameObjectManager()
 windowManagement = WindowManagement(gameObjectManager, 1200, 1200)
 
+aiManager = AIManager()
+
 draggingMouse = False
+
+lastSpawnTime = 0
+spawnInterval = 0.01
 
 def main():
     print("Starting...")
@@ -33,10 +41,8 @@ def main():
 
     player = Player("PlayerCharacter", Vector2(0, 0))
     gameObjectManager.addObject(player)
-    
-    print("Starting GLUT Main Loop")
+
     glutMainLoop()
-    
     print("Ending...")
 
 def mouseButton(button, state, x, y):
@@ -69,6 +75,15 @@ def keyboardUp(key, x, y):
 
 def idle():
     player.inputManager.update()
+    
+    global lastSpawnTime
+    currentTime = time.time()
+    
+    # Check if it's time to spawn a new AI
+    if currentTime - lastSpawnTime >= spawnInterval:
+        aiManager.spawnAi(gameObjectManager)
+        lastSpawnTime = currentTime
+    
     glutPostRedisplay()
 
 main()

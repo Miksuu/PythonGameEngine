@@ -1,6 +1,7 @@
 from GameObject import GameObject
 from Vector2 import Vector2
 from Camera import Camera
+from Gun import Gun
 
 class Character(GameObject):
     def __init__(self, name, position):
@@ -15,3 +16,10 @@ class Character(GameObject):
         
     def handleGameLoop(self):
         super().handleGameLoop()
+
+    def equipGun(self, gun):
+        self.equipped_gun = gun
+
+    def attack(self, x, y, gameObjectManager):
+        if hasattr(self, 'equipped_gun'):
+            self.equipped_gun.shoot(self.position, x, y, gameObjectManager)
