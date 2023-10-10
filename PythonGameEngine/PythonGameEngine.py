@@ -24,7 +24,7 @@ aiManager = AIManager()
 draggingMouse = False
 
 lastSpawnTime = 0
-spawnInterval = 0.01
+spawnInterval = 1
 
 def main():
     print("Starting...")
@@ -79,7 +79,6 @@ def idle():
     global lastSpawnTime
     currentTime = time.time()
     
-    # Check if it's time to spawn a new AI
     if currentTime - lastSpawnTime >= spawnInterval:
         aiManager.spawnAi(gameObjectManager)
         lastSpawnTime = currentTime
