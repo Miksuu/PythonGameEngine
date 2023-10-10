@@ -24,7 +24,7 @@ def main():
 
     windowManagement.setupWindow()
     
-    glutKeyboardFunc(keyboard)
+    glutKeyboardFunc(keyboardDown)
     glutKeyboardUpFunc(keyboardUp)
     glutIdleFunc(idle)
     
@@ -61,7 +61,7 @@ def mouseDrag(x, y):
 def recenterCamera():
     camera.position = player.position
 
-def keyboard(key, x, y):
+def keyboardDown(key, x, y):
     player.inputManager.keyDown(key)
 
 def keyboardUp(key, x, y):
