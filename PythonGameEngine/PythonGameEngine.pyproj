@@ -35,6 +35,9 @@
     <Compile Include="Player.py" />
     <Compile Include="PythonGameEngine.py" />
     <Compile Include="Renderer.py" />
+    <Compile Include="Quaternion.py" />
+    <Compile Include="Matrix4x4.py" />
+    <Compile Include="Transform.py" />
     <Compile Include="Vector2.py" />
     <Compile Include="WindowManagement.py" />
   </ItemGroup>

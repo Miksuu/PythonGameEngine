@@ -4,15 +4,15 @@ from Camera import Camera
 from Gun import Gun
 
 class Character(GameObject):
-    def __init__(self, name, position):
-        super().__init__(name, position)
+    def __init__(self, name, transform):
+        super().__init__(name, transform)
         self.movementSpeed = 0.01
         
         self.camera = Camera()
         
     def update(self):
         super().update()
-        self.position += self.velocity
+        self.transform.position += self.velocity
         
     def handleGameLoop(self):
         super().handleGameLoop()
@@ -22,4 +22,4 @@ class Character(GameObject):
 
     def attack(self, x, y, gameObjectManager):
         if hasattr(self, 'equipped_gun'):
-            self.equipped_gun.shoot(self.position, x, y, gameObjectManager)
+            self.equipped_gun.shoot(self.transform, x, y, gameObjectManager)

@@ -3,8 +3,8 @@ from Renderer import Renderer
 from Vector2 import Vector2
 
 class Bullet(GameObject):
-    def __init__(self, name, position, mouseX, mouseY):
-        super().__init__(name, position)
+    def __init__(self, name, transform, mouseX, mouseY):
+        super().__init__(name, transform)
         
         #print("Debug Position: ", position.x, " | ", position.y)
         
@@ -14,10 +14,10 @@ class Bullet(GameObject):
         #print("Debug calculated offset: ", offsetX, " | ", offsetY)
 
         # Compute the direction vector
-        direction = Vector2(mouseX - 600, 600 - mouseY) - position
+        direction = Vector2(mouseX - 600, 600 - mouseY) - transform.position
         #print("Debug Direction: ", direction.x, " | ", direction.y)
         
         self.velocity = direction.normalize() * 0.01
         #print("Debug Velocity: ", self.velocity.x, " | ", self.velocity.y)
         
-        self.renderer = Renderer(None, name, position)
+        self.renderer = Renderer(None, name, transform)

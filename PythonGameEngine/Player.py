@@ -7,13 +7,13 @@ from Camera import Camera
 from InputManager import InputManager
 
 class Player(Character):
-    def __init__(self, name, position):
-        super().__init__(name, position)
+    def __init__(self, name, transform):
+        super().__init__(name, transform)
         self.movementSpeed = 0.01
         
         self.camera = Camera()
         self.inputManager = InputManager(self, self.camera)
-        self.renderer = Renderer(self.camera, name, position)
+        self.renderer = Renderer(self.camera, name, transform)
 
     def update(self):
-        self.position += self.velocity
+        self.transform.position += self.velocity

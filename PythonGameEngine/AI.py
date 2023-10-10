@@ -5,14 +5,14 @@ from Vector2 import Vector2
 from Renderer import Renderer
 
 class AI(Character):
-    def __init__(self, name, position):
-        super().__init__(name, position)
+    def __init__(self, name, transform):
+        super().__init__(name, transform)
         self.equipped_gun = Gun("Pistol", 10)
         
         self.lastShootTime = 0
         self.shootInterval = 2
         
-        self.renderer = Renderer(None, name, position)
+        self.renderer = Renderer(None, name, transform)
         
     def update(self):
         super().update()

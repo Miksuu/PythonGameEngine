@@ -11,7 +11,7 @@ from ctypes import create_string_buffer
 from struct import unpack
 
 class Renderer:
-    def __init__(self, camera, gameObjectName, position):
+    def __init__(self, camera, gameObjectName, transform):
         assetNameToSearchFor = "Assets/" + gameObjectName + "/vboData.py"
         self.playerAsset = FileManager(assetNameToSearchFor)
         self.playerAsset.readImportlib()
@@ -27,10 +27,10 @@ class Renderer:
 
         for i in range(0, len(self.vboArray), 7):
             self.vboArray[i] -= xCenter
-            self.vboArray[i] += position.x
+            self.vboArray[i] += transform.position.x
 
             self.vboArray[i+1] -= yCenter
-            self.vboArray[i+1] += position.y
+            self.vboArray[i+1] += transform.position.y
 
         self.vbo = self.initializeVboData()
 

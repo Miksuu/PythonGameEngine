@@ -1,5 +1,6 @@
 import random
 import time
+from Transform import Transform
 
 from Vector2 import Vector2
 from AI import AI
@@ -12,7 +13,7 @@ class AIManager:
         x = random.uniform(-1, 1)
         y = random.uniform(-1, 1)
         print("Spawning at: ", x, "|", y)
-        aiInstance = AI("Soldier", Vector2(x, y))
+        aiInstance = AI("Soldier", Transform(Vector2(x, y)))
         self.aiList.append(aiInstance)
         gameObjectManager.addObject(aiInstance)
         

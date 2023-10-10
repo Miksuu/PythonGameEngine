@@ -8,6 +8,7 @@ import time
 # Engine components
 from Camera import Camera
 from GameObjectManager import GameObjectManager
+from Transform import Transform
 from Vector2 import Vector2
 from WindowManagement import WindowManagement
 from FileManager import FileManager
@@ -24,7 +25,7 @@ aiManager = AIManager()
 draggingMouse = False
 
 lastSpawnTime = 0
-spawnInterval = 1
+spawnInterval = 5
 
 def main():
     print("Starting...")
@@ -39,7 +40,7 @@ def main():
     glutMouseFunc(mouseButton)
     glutMotionFunc(mouseDrag)
 
-    player = Player("PlayerCharacter", Vector2(0, 0))
+    player = Player("PlayerCharacter", Transform())
     gameObjectManager.addObject(player)
 
     glutMainLoop()
@@ -54,8 +55,8 @@ def mouseButton(button, state, x, y):
             #recenterCamera()
 
         if button == GLUT_LEFT_BUTTON:
-            projectilePosition = Vector2(player.position.x, player.position.y)
-            projectile = Bullet("Bullet", projectilePosition, x, y)
+            projectileTransform = Transform(Vector2(player.transform.position.x, player.transform.position.y))
+            projectile = Bullet("Bullet", projectileTransform, x, y)
             gameObjectManager.addObject(projectile)
     #else:
         #draggingMouse = False
