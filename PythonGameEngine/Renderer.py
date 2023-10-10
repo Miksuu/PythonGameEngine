@@ -21,7 +21,7 @@ class Renderer:
         self.vboArray = self.playerAsset.module.shader
         self.vboArray = array('f', self.vboArray)
 
-        numVertices = len(self.vboArray) // 7
+        numVertices = len(self.vboArray) / 7
         xCenter = sum(self.vboArray[i] for i in range(0, len(self.vboArray), 7)) / numVertices
         yCenter = sum(self.vboArray[i+1] for i in range(0, len(self.vboArray), 7)) / numVertices
 
