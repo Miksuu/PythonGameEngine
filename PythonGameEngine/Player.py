@@ -1,3 +1,4 @@
+from Character import Character
 from GameObject import GameObject
 from Renderer import Renderer
 from Vector2 import Vector2
@@ -5,7 +6,7 @@ from Camera import Camera
 
 from InputManager import InputManager
 
-class Player(GameObject):
+class Player(Character):
     def __init__(self, name, position):
         super().__init__(name, position)
         self.movementSpeed = 0.01

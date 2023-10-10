@@ -28,6 +28,7 @@
     <Compile Include="GameObjectManager.py" />
     <Compile Include="InputManager.py" />
     <Compile Include="Bullet.py" />
+    <Compile Include="Character.py" />
     <Compile Include="Player.py" />
     <Compile Include="PythonGameEngine.py" />
     <Compile Include="Renderer.py" />
