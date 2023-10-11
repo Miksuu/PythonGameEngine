@@ -5,18 +5,13 @@ from Vector2 import Vector2
 class Bullet(GameObject):
     def __init__(self, name, transform, targetVec2):
         super().__init__(name, transform)
-
-        # Compute the direction vector
-        direction = Vector2(targetVec2.x - 600, 600 - targetVec2.y) - transform.position
-        #print("Debug Direction: ", direction.x, " | ", direction.y)
-        
-        self.velocity = direction.normalize() * 0.01
-        #projectile.velocity = Vector2(1, 1)  # Temp Setting the projectile to go with 1,1 velocity
-        #print("Debug Velocity: ", self.velocity.x, " | ", self.velocity.y)
-
-        print("bullet transform: ", transform.position.x, "|", transform.position.y, " | targetVec2: ", targetVec2.x, "|", targetVec2.y)
-        
+        self.setVelocity(transform, targetVec2)
         self.renderer = Renderer(None, name, transform)
+        print(f"bullet transform: {transform.position.x}|{transform.position.y} | targetVec2: {targetVec2.x}|{targetVec2.y}")
+    
+    def setVelocity(self, transform, targetVec2):
+        direction = Vector2(targetVec2.x - transform.position.x, targetVec2.y - transform.position.y)
+        self.velocity = direction.normalize()  * 0.0001   
         
 # OLD CLASS FOR THE BULLET TAKING IN THE MOUSE POSITION, DO NOT DELETE!!! (Unless player controlled bots idea discarded)
 # class Bullet(GameObject):

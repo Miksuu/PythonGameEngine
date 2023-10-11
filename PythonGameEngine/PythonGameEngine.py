@@ -25,7 +25,7 @@ aiManager = AIManager()
 draggingMouse = False
 
 lastSpawnTime = 0
-spawnInterval = 2
+spawnInterval = 1
 
 def main():
     print("Starting...")
