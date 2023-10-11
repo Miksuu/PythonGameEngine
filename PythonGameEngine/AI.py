@@ -7,7 +7,7 @@ from Renderer import Renderer
 class AI(Character):
     def __init__(self, name, transform):
         super().__init__(name, transform)
-        self.equipped_gun = Gun("Pistol", 10)
+        self.equippedGun = Gun("Pistol", 10)
         
         self.lastShootTime = 0
         self.shootInterval = 2
@@ -20,15 +20,15 @@ class AI(Character):
     def automaticShooting(self, gameObjectManager, aiList):
         currentTime = time.time()
         if currentTime - self.lastShootTime >= self.shootInterval:
-            closest_ai = self.FindClosestTarget(self.transform.position, aiList)
+            closest_ai = self.findClosestTarget(self.transform.position, aiList)
             if closest_ai:
-                target_position = closest_ai.transform.position
-                self.attack(target_position.x, target_position.y, gameObjectManager)
+                targetPosition = closest_ai.transform.position
+                self.attack(Vector2(targetPosition.x, targetPosition.y), gameObjectManager)
                 self.lastShootTime = currentTime
             else:
                 print("No target found.")
             
-    def FindClosestTarget(self, fromPosition, aiList):
+    def findClosestTarget(self, fromPosition, aiList):
         closestAi = None
         closestDistance = float('inf')
 

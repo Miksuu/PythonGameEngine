@@ -20,6 +20,6 @@ class Character(GameObject):
     def equipGun(self, gun):
         self.equippedGun = gun
 
-    def attack(self, x, y, gameObjectManager):
+    def attack(self, targetVec2, gameObjectManager):
         if hasattr(self, 'equippedGun'):
-            self.equippedGun.shoot(self.transform, x, y, gameObjectManager)
+            self.equippedGun.shoot(self.transform, targetVec2, gameObjectManager)

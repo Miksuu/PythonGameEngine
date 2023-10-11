@@ -25,7 +25,7 @@ aiManager = AIManager()
 draggingMouse = False
 
 lastSpawnTime = 0
-spawnInterval = 1
+spawnInterval = 2
 
 def main():
     print("Starting...")
@@ -49,15 +49,15 @@ def main():
 def mouseButton(button, state, x, y):
     global draggingMouse
 
-    if state == GLUT_DOWN:
+    # if state == GLUT_DOWN:
         #if button == GLUT_RIGHT_BUTTON:
             #draggingMouse = True
             #recenterCamera()
 
-        if button == GLUT_LEFT_BUTTON:
-            projectileTransform = Transform(Vector2(player.transform.position.x, player.transform.position.y))
-            projectile = Bullet("Bullet", projectileTransform, x, y)
-            gameObjectManager.addObject(projectile)
+        # if button == GLUT_LEFT_BUTTON:
+        #     projectileTransform = Transform(Vector2(player.transform.position.x, player.transform.position.y))
+        #     projectile = Bullet("Bullet", projectileTransform, x, y)
+        #     gameObjectManager.addObject(projectile)
     #else:
         #draggingMouse = False
 

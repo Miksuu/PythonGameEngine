@@ -7,8 +7,7 @@ class Gun:
         self.weapon_name = weapon_name
         self.damage = damage
 
-    def shoot(self, characterTransform, x, y, gameObjectManager):
+    def shoot(self, characterTransform, targetVec2, gameObjectManager):
         projectileTransform = Transform(Vector2(characterTransform.position.x, characterTransform.position.y))
-        projectile = Bullet("Bullet", projectileTransform, x, y)
-        projectile.velocity = Vector2(1, 1)  # Temp Setting the projectile to go with 1,1 velocity
+        projectile = Bullet("Bullet", projectileTransform, targetVec2)
         gameObjectManager.addObject(projectile)
