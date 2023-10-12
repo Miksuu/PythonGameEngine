@@ -26,12 +26,9 @@ class Renderer:
         yCenter = sum(self.vboArray[i+1] for i in range(0, len(self.vboArray), 7)) / numVertices
 
         for i in range(0, len(self.vboArray), 7):
-            self.vboArray[i] -= xCenter
-            self.vboArray[i] += transform.position.x
-
-            self.vboArray[i+1] -= yCenter
-            self.vboArray[i+1] += transform.position.y
-
+            self.vboArray[i] = self.vboArray[i] - xCenter + transform.position.x
+            self.vboArray[i+1] = self.vboArray[i+1] - yCenter + transform.position.y
+            
         self.vbo = self.initializeVboData()
 
         if camera != None:
