@@ -11,7 +11,7 @@ class Bullet(GameObject):
     
     def setVelocity(self, transform, targetVec2):
         direction = Vector2(targetVec2.x - transform.position.x, targetVec2.y - transform.position.y)
-        self.velocity = direction.normalize()  * 0.0001   
+        self.velocity = direction.normalize()  * 0.001   
         
 # OLD CLASS FOR THE BULLET TAKING IN THE MOUSE POSITION, DO NOT DELETE!!! (Unless player controlled bots idea discarded)
 # class Bullet(GameObject):
