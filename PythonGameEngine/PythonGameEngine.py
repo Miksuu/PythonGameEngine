@@ -65,8 +65,8 @@ def mouseDrag(x, y):
     if draggingMouse:
         player.inputManager.handleMouseMovement(x, y)
 
-def recenterCamera():
-    camera.position = player.position
+#def recenterCamera():
+#    camera.position = player.position
 
 def keyboardDown(key, x, y):
     player.inputManager.keyDown(key)
