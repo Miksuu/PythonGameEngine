@@ -8,13 +8,13 @@ from Camera import Camera
 from InputManager import InputManager
 
 class GameObject:
-    def __init__(self, name, position):
+    def __init__(self, name, transform):
         self.name = name
-        self.position = Vector2(position.x, position.y)
-        self.velocity = Vector2(0, 0)            
+        self.transform = transform
+        self.velocity = Vector2(0, 0)
 
     def update(self):
-        self.position += self.velocity
+        self.transform.position += self.velocity
 
     def handleGameLoop(self):
         #self.renderer.shader.setShaderUniforms()        
